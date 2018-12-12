@@ -32,11 +32,11 @@ spring:
   liquibase:
     enabled: false
   datasource:
-    url: jdbc:p6spy:mysql://127.0.0.1:3306/crown?characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
-    username: root
-    password: 521
+    url: jdbc:postgresql://ec2-54-83-38-174.compute-1.amazonaws.com:5432/d5a87ip5cr3ba3?allow=true
+    username: zvntvkzoyjjuwt
+    password: f2c5b78ca2f7ac7b0b1d0baa4ab30150a1e7d9f0c9fd964d71a5b40732643582
     type: com.zaxxer.hikari.HikariDataSource
-    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    driver-class-name: org.postgresql.Driver
     hikari:
       auto-commit: false
       connection-timeout: 30000
