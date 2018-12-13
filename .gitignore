@@ -61,6 +61,7 @@
 #local.properties
 .settings/
 .loadpath
+*.yml
 
 # Eclipse Core
 .project
