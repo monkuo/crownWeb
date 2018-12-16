@@ -20,34 +20,20 @@
  */
 package org.crown.generate;
 
-import com.baomidou.mybatisplus.generator.AutoGenerator;
+import org.junit.Test;
 
 /**
  * <p>
- * Mysql程式碼生成器
+ * PostgresqlGeneratorTest
  * </p>
  *
- * @author Caratacus
+ * @author Benson
  */
-public class MysqlGenerator extends SuperGenerator {
+public class PostgresqlGeneratorTest {
 
-    /**
-     * <p>
-     * MySQL generator
-     * </p>
-     */
-    public void generator(String tableName) {
-
-        // 程式碼生成器
-        AutoGenerator mpg = getAutoGenerator(tableName, getMysqlDataSourceConfig());
-        mpg.execute();
-        if (tableName == null) {
-            System.err.println(" Generator Success !");
-        } else {
-            System.err.println(" TableName【 " + tableName + " 】" + "Generator Success !");
-
-        }
+    @Test
+    public void generator() {
+        PostgresqlGenerator generator = new PostgresqlGenerator();
+        generator.generator("sys_customer");
     }
-
-
 }

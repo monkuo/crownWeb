@@ -190,3 +190,30 @@ ALTER SEQUENCE sys_user_role_seq RESTART WITH 51;
 BEGIN;
 INSERT INTO sys_user_role VALUES ('24', '18', '2'), ('49', '1', '1'), ('50', '19', '2');
 COMMIT;
+
+-- ----------------------------
+--  Table structure for `sys_customer`
+-- ----------------------------
+DROP TABLE IF EXISTS sys_customer;
+DROP SEQUENCE IF EXISTS sys_customer_seq;
+CREATE SEQUENCE sys_customer_seq;
+
+CREATE TABLE sys_customer (
+  id int NOT NULL DEFAULT NEXTVAL ('sys_customer_seq'),
+  customer_name varchar(64) NOT NULL ,
+  create_uid int NOT NULL ,
+  update_uid int NOT NULL ,
+  create_time timestamp(0) NOT NULL ,
+  update_time timestamp(0) NOT NULL ,
+  remark varchar(128) DEFAULT NULL ,
+  PRIMARY KEY (id)
+)   ;
+
+ALTER SEQUENCE sys_customer_seq RESTART WITH 3;
+
+-- ----------------------------
+--  Records of `sys_customer`
+-- ----------------------------
+BEGIN;
+INSERT INTO sys_customer VALUES ('1', '一號客戶', '1', '1', '2018-12-16 09:34:43', '2018-12-16 09:34:43', '一號客戶');
+COMMIT;
