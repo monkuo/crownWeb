@@ -2,58 +2,58 @@
     <div class="layui-card-header">
         <h2 class="header-title">角色管理</h2>
         <span class="layui-breadcrumb pull-right">
-          <a href="#!console">首页</a>
+          <a href="#!console">首頁</a>
           <a><cite>角色管理</cite></a>
         </span>
     </div>
     <div class="layui-card-body">
-        <!-- 搜索条件 -->
+        <!-- 搜尋條件 -->
         <div class="layui-form toolbar">
             <form id="searchForm" onsubmit="return false;">
-                角色名：<input name="roleName" class="layui-input search-input" type="text" placeholder="输入角色名"/>&emsp;
-                <button id="role-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+                角色名：<input name="roleName" class="layui-input search-input" type="text" placeholder="輸入角色名"/>&emsp;
+                <button id="role-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜尋</button>
             </form>
         </div>
-        <!-- 表格顶部操作列 -->
+        <!-- 表格頂部操作列 -->
         <script type="text/html" id="role-toolbar">
             <div class="layui-btn-container">
                 {{# if({{addShow}} == true){ }}
                 <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add"><i
-                        class="layui-icon">&#xe654;</i>添加
+                        class="layui-icon">&#xe654;</i>新增
                 </button>
                 {{# } }}
             </div>
         </script>
-        <!-- 数据表格 -->
+        <!-- 資料表格 -->
         <table class="layui-table" id="role-table" lay-filter="role-table"></table>
     </div>
 </div>
 
-<!-- 表单弹窗 -->
+<!-- 表單彈窗 -->
 <script type="text/html" id="role-model">
     <form id="role-form" lay-filter="role-form" class="layui-form model-form">
         <input name="id" type="hidden"/>
         <div class="layui-form-item">
             <label class="layui-form-label">角色名</label>
             <div class="layui-input-block">
-                <input name="roleName" placeholder="请输入角色名" type="text" class="layui-input" maxlength="20"
+                <input name="roleName" placeholder="請輸入角色名" type="text" class="layui-input" maxlength="20"
                        lay-verify="required"/>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">备注</label>
+            <label class="layui-form-label">備註</label>
             <div class="layui-input-block">
-                <textarea name="remark" placeholder="请输入内容" class="layui-textarea" maxlength="200"></textarea>
+                <textarea name="remark" placeholder="請輸入內容" class="layui-textarea" maxlength="200"></textarea>
             </div>
         </div>
         <div class="layui-form-item model-form-footer">
             <button class="layui-btn layui-btn-primary close" type="button">取消</button>
-            <button class="layui-btn" lay-filter="role-form-submit" lay-submit>保存</button>
+            <button class="layui-btn" lay-filter="role-form-submit" lay-submit>儲存</button>
         </div>
     </form>
 </script>
 
-<!-- 表单tree -->
+<!-- 表單tree -->
 <script type="text/html" id="menu-tree">
     <form id="tree-form" lay-filter="tree-form" class="layui-form model-form">
         <input name="roleId" type="hidden"/>
@@ -64,7 +64,7 @@
         </div>
         <div class="layui-form-item model-form-footer" style="padding:10px 30px;">
             <button class="layui-btn layui-btn-primary layui-btn-sm close" type="button">取消</button>
-            <button class="layui-btn layui-btn-sm" lay-filter="tree-form-submit" lay-submit>保存</button>
+            <button class="layui-btn layui-btn-sm" lay-filter="tree-form-submit" lay-submit>儲存</button>
         </div>
     </form>
 </script>
@@ -72,13 +72,13 @@
 <!-- 表格操作列 -->
 <script type="text/html" id="role-table-bar">
     {{#  if({{permShow}} == true){ }}
-    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="resource">菜单授权</a>
+    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="resource">選單授權</a>
     {{#  } }}
     {{#  if({{editShow}} == true){ }}
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
     {{#  } }}
     {{#  if({{deleteShow}} == true){ }}
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">刪除</a>
     {{#  } }}
 </script>
 
@@ -105,9 +105,9 @@
                 name: "menuName"
             },
             check: {
-                enable: true, // 显示多选框按钮
-                chkStyle: "checkbox", // 添加生效
-                chkboxType: {"Y": "", "N": ""} //Y:勾选（参数：p:影响父节点），N：不勾（参数s：影响子节点）[p 和 s 为参数]
+                enable: true, // 顯示多選框按鈕
+                chkStyle: "checkbox", // 新增生效
+                chkboxType: {"Y": "", "N": ""} //Y:勾選（參數：p:影響父節點），N：不勾（參數s：影響子節點）[p 和 s 為參數]
             }
         },
         edit: {
@@ -119,9 +119,9 @@
     var newCount = 1;
 
     function onAsyncSuccess() {
-        //获得树形图对象
+        //獲得樹形圖物件
         var zTree = $.fn.zTree.getZTreeObj("menuTreeData");
-        //获取根节点个数,getNodes获取的是根节点的集合
+        //獲取根節點個數,getNodes獲取的是根節點的集合
         var nodeList = zTree.getNodes();
         for (var i = 0; i < nodeList.length; i++) {
             zTree.expandNode(nodeList[i], true, false, false, false);
@@ -175,21 +175,21 @@
                 {type: 'numbers'},
                 {field: 'id', align: 'center', width: 60, sort: true, title: 'ID'},
                 {field: 'roleName', align: 'center', sort: true, title: '角色名'},
-                {field: 'remark', align: 'center', sort: true, title: '备注'},
-                {field: 'createTime', align: 'center', sort: true, title: '创建时间'},
-                {field: 'updateTime', align: 'center', sort: true, title: '修改时间'},
+                {field: 'remark', align: 'center', sort: true, title: '備註'},
+                {field: 'createTime', align: 'center', sort: true, title: '建立時間'},
+                {field: 'updateTime', align: 'center', sort: true, title: '修改時間'},
                 {align: 'center', toolbar: '#role-table-bar', title: '操作', width: 200}
             ]]
         });
 
-        // 添加
+        // 新增
         table.on('toolbar(role-table)', function (obj) {
             if (obj.event === 'add') {
                 showEditModel();
             }
         });
 
-        // 表单提交事件
+        // 表單提交事件
         form.on('submit(role-form-submit)', function (data) {
             layer.load(2);
             if (data.field.id) {
@@ -202,7 +202,7 @@
             } else {
                 crown.post('/roles', {data:data.field}, function () {
                     layer.closeAll('loading');
-                    layer.msg('添加成功', {icon: 1});
+                    layer.msg('新增成功', {icon: 1});
                     roleTable.reload('role-table');
                     layer.closeAll('page');
                 });
@@ -210,7 +210,7 @@
             return false;
         });
 
-        // 表单提交事件
+        // 表單提交事件
         form.on('submit(tree-form-submit)', function (data) {
             layer.load(2);
             var zTree = $.fn.zTree.getZTreeObj("menuTreeData");
@@ -220,37 +220,37 @@
                 menuIds.push(checked[i].id);
             }
             if (menuIds.length == 0) {
-                layer.msg('请选择关联菜单', {icon: 5});
+                layer.msg('請選擇關聯選單', {icon: 5});
                 layer.closeAll('page');
                 return false;
             }
             crown.put('/roles/' + data.field.roleId + '/menus', {data: menuIds}, function () {
                 layer.closeAll('loading');
-                layer.msg('关联成功', {icon: 1});
+                layer.msg('關聯成功', {icon: 1});
                 roleTable.reload('role-table');
                 layer.closeAll('page');
             });
             return false;
         });
 
-        // 工具条点击事件
+        // 工具條點選事件
         table.on('tool(role-table)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') { //修改
                 showEditModel(data);
-            } else if (obj.event === 'del') { //删除
+            } else if (obj.event === 'del') { //刪除
                 doDelete(obj);
             } else if (obj.event === 'resource') {
                 showMenuTree(data);
             }
         });
 
-        //显示菜单树
+        //顯示選單樹
         var showMenuTree = function (data) {
             var menuIds = data.menuIds;
             layer.open({
                 type: 1,
-                title: '菜单关联',
+                title: '選單關聯',
                 area: '450px',
                 offset: '120px',
                 content: $('#menu-tree').html(),
@@ -259,10 +259,10 @@
                     form.val("tree-form", {
                         "roleId": data.id
                     });
-                    //树形菜单
+                    //樹形選單
                     crown.get('/menus', {}, function (data) {
                         var result = data.result;
-                        //定义一数组
+                        //定義一陣列
                         var zNodes = [];
                         for (var i = 0; i < result.length; i++) {
                             var zNode = {};
@@ -289,11 +289,11 @@
             });
         };
 
-        // 显示编辑弹窗
+        // 顯示編輯彈窗
         var showEditModel = function (data) {
             layer.open({
                 type: 1,
-                title: data ? '修改角色' : '添加角色',
+                title: data ? '修改角色' : '新增角色',
                 area: '450px',
                 offset: '120px',
                 content: $('#role-model').html(),
@@ -308,20 +308,20 @@
                 }
             });
         };
-        // 删除
+        // 刪除
         var doDelete = function (obj) {
-            layer.confirm('确定要删除吗？', function (i) {
+            layer.confirm('確定要刪除嗎？', function (i) {
                 layer.close(i);
                 layer.load(2);
                 crown.delete('/roles/' + obj.data.id, {}, function () {
                     layer.closeAll('loading');
-                    layer.msg('删除成功', {icon: 1});
+                    layer.msg('刪除成功', {icon: 1});
                     obj.del();
                 });
             });
         };
 
-        // 搜索按钮点击事件
+        // 搜尋按鈕點選事件
         $('#role-btn-search').click(function () {
             roleTable.reload({where: crown.getSearchForm()});
         });

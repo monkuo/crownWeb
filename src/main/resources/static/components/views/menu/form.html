@@ -1,65 +1,65 @@
 <form id="menu-form" lay-filter="menu-form" class="layui-form model-form">
     <input name="id" type="hidden"/>
     <div class="layui-form-item">
-        <label class="layui-form-label">菜单名称</label>
+        <label class="layui-form-label">選單名稱</label>
         <div class="layui-input-block">
-            <input name="menuName" placeholder="请输入菜单名称" type="text" class="layui-input" maxlength="20"
+            <input name="menuName" placeholder="請輸入選單名稱" type="text" class="layui-input" maxlength="20"
                    lay-verify="required"/>
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">权限别名</label>
+        <label class="layui-form-label">許可權別名</label>
         <div class="layui-input-block">
-            <input name="alias" placeholder="请输入权限别名" type="text" class="layui-input" maxlength="64"/>
+            <input name="alias" placeholder="請輸入許可權別名" type="text" class="layui-input" maxlength="64"/>
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">类型</label>
+        <label class="layui-form-label">類型</label>
         <div class="layui-input-block">
             <select name="menuType" lay-verify="required" lay-filter="menuType">
-                <option value="1" selected="selected">目录</option>
-                <option value="2">菜单</option>
-                <option value="3">按钮</option>
+                <option value="1" selected="selected">目錄</option>
+                <option value="2">選單</option>
+                <option value="3">按鈕</option>
             </select>
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">选择图标</label>
+        <label class="layui-form-label">選擇圖示</label>
         <div class="layui-input-block">
             <input type="text" id="iconPicker" name="icon" lay-filter="iconPicker" class="layui-input"/>
         </div>
     </div>
     <div class="layui-form-item" id="pathDiv" style="display: none">
-        <label class="layui-form-label">菜单路径</label>
+        <label class="layui-form-label">選單路徑</label>
         <div class="layui-input-block">
-            <input name="path" placeholder="请输入路径" type="text" class="layui-input" maxlength="64" lay-verify=""/>
+            <input name="path" placeholder="請輸入路徑" type="text" class="layui-input" maxlength="64" lay-verify=""/>
         </div>
     </div>
     <div class="layui-form-item" id="routerDiv" style="display: none">
         <label class="layui-form-label">路由</label>
         <div class="layui-input-block">
-            <input name="router" placeholder="请输入路由地址" type="text" class="layui-input" maxlength="64" lay-verify=""/>
+            <input name="router" placeholder="請輸入路由地址" type="text" class="layui-input" maxlength="64" lay-verify=""/>
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">状态</label>
+        <label class="layui-form-label">狀態</label>
         <div class="layui-input-block">
             <input type="radio" name="status" value="0" title="正常" checked="checked">
             <input type="radio" name="status" value="1" title="禁用">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">上级菜单</label>
+        <label class="layui-form-label">上級選單</label>
         <div class="layui-input-block">
             <select id="parentId" name="parentId" lay-filter="parentId" lay-verify="required">
-                <option value="">请选择</option>
-                <option value="0">首级菜单</option>
+                <option value="">請選擇</option>
+                <option value="0">首級選單</option>
                 <option p-for="parents" p-bind="value:{{id}}">{{name}}</option>
             </select>
         </div>
     </div>
     <div class="layui-form-item" id="resourceIdsDiv" style="display: none">
-        <label class="layui-form-label">对应资源</label>
+        <label class="layui-form-label">對應資源</label>
         <div class="layui-input-block">
             <select name="resourceIds" xm-select="resourceIds" xm-select-search="" xm-select-max="5">
             </select>
@@ -67,7 +67,7 @@
     </div>
     <div class="layui-form-item model-form-footer">
         <button class="layui-btn layui-btn-primary close" type="button">取消</button>
-        <button class="layui-btn" lay-filter="menu-form-submit" lay-submit>保存</button>
+        <button class="layui-btn" lay-filter="menu-form-submit" lay-submit>儲存</button>
     </div>
 </form>
 
@@ -82,7 +82,7 @@
         var menu = crown.getTempData('t_menu');
 
         crown.get('/resources/resources', {async: false}, function (data) {
-            // 渲染多选下拉框
+            // 渲染多選下拉框
             var resourceSelectData = new Array();
             for (var i = 0; i < data.result.length; i++) {
                 resourceSelectData.push({
@@ -93,11 +93,11 @@
             formSelects.data('resourceIds', 'local', {arr: resourceSelectData});
         });
 
-        // 获取所有菜单
+        // 獲取所有選單
         crown.get('/menus/combos', {}, function (data) {
             $('#parentId').vm({parents: data.result});
             form.render('select');
-            // 回显menu数据
+            // 回顯menu資料
             if (menu) {
                 if (menu.menuType == 1) {
                     $("#resourceIdsDiv").hide();
@@ -125,7 +125,7 @@
                 iconPicker.checkIcon('iconPicker', 'layui-icon-rate-half');
             }
         });
-        // 表单提交事件
+        // 表單提交事件
         form.on('select(menuType)', function (data) {
             if (data.value == 1) {
                 $("#resourceIdsDiv").hide();
@@ -141,9 +141,9 @@
                 $("#resourceIdsDiv").show();
             }
         });
-        // 表单提交事件
+        // 表單提交事件
         form.on('submit(menu-form-submit)', function (data) {
-            //定义一数组
+            //定義一陣列
             var resourceIds = new Array();
             if (data.field.resourceIds) {
                 resourceIds = data.field.resourceIds.split(",");
@@ -159,24 +159,24 @@
             } else {
                 crown.post('/menus', {data: data.field}, function () {
                     layer.closeAll('loading');
-                    layer.msg('添加成功', {icon: 1});
+                    layer.msg('新增成功', {icon: 1});
                     crown.finishPopupCenter();
                 });
             }
             return false;
         });
         iconPicker.render({
-            // 选择器，推荐使用input
+            // 選擇器，推薦使用input
             elem: '#iconPicker',
-            // 数据类型：fontClass/unicode，推荐使用fontClass
+            // 資料類型：fontClass/unicode，推薦使用fontClass
             type: 'fontClass',
-            // 是否开启搜索：true/false
+            // 是否開啟搜尋：true/false
             search: true,
-            // 是否开启分页
+            // 是否開啟分頁
             page: true,
-            // 每页显示数量，默认12
+            // 每頁顯示數量，預設12
             limit: 12,
-            // 点击回调
+            // 點選回撥
             click: function (data) {
                 $("#iconPicker").val(data.icon);
             }
