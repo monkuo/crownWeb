@@ -24,22 +24,22 @@ import com.baomidou.mybatisplus.generator.AutoGenerator;
 
 /**
  * <p>
- * Mysql程式碼生成器
+ * PostgreSQL程式碼生成器
  * </p>
  *
- * @author Caratacus
+ * @author Benson
  */
-public class MysqlGenerator extends SuperGenerator {
+public class PostgresqlGenerator extends SuperGenerator {
 
     /**
      * <p>
-     * MySQL generator
+     * PostgreSQL generator
      * </p>
      */
     public void generator(String tableName) {
 
         // 程式碼生成器
-        AutoGenerator mpg = getAutoGenerator(tableName, getMysqlDataSourceConfig());
+        AutoGenerator mpg = getAutoGenerator(tableName, getPostgresqlDataSourceConfig());
         mpg.execute();
         if (tableName == null) {
             System.err.println(" Generator Success !");
