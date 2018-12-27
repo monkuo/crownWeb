@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 O.K.Bone.
+ * Copyright (c) 2018-2022 Caratacus, (caratacus@qq.com).
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -18,29 +18,22 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package ${package.ServiceImpl};
+package org.crown.generate;
 
-import ${package.Entity}.${entity};
-import ${package.Mapper}.${table.mapperName};
-import ${package.Service}.${table.serviceName};
-import ${superServiceImplClassPackage};
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.junit.Test;
 
 /**
  * <p>
- * $!{table.comment} 服務實作類
+ * PostgresqlGeneratorTest
  * </p>
  *
- * @author ${author}
+ * @author Benson
  */
-@Service
-#if(${kotlin})
-open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+public class PostgresqlGeneratorTest {
 
-        }
-#else
-        public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}>implements ${table.serviceName} {
-
-        }
-#end
+    @Test
+    public void generator() {
+        PostgresqlGenerator generator = new PostgresqlGenerator();
+        generator.generator("com.okbone","ok_", "customer");
+    }
+}

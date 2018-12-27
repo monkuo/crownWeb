@@ -18,22 +18,36 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.crown.framework.p6spy;
+package org.crown.generate;
 
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
+import com.baomidou.mybatisplus.generator.AutoGenerator;
 
 /**
- * P6spy SQL 日志格式化
+ * <p>
+ * PostgreSQL程式碼生成器
+ * </p>
  *
- * @author Caratacus
+ * @author Benson
  */
-public class P6spyLogFormat implements MessageFormattingStrategy {
+public class PostgresqlGenerator extends SuperGenerator {
 
-    @Override
-    public String formatMessage(final int connectionId, final String now, final long elapsed, final String category, final String prepared, final String sql, final String url) {
+    /**
+     * <p>
+     * PostgreSQL generator
+     * </p>
+     */
+    public void generator(String packagePath, String prefix, String tableName) {
 
-        return StringUtils.isNotEmpty(sql) ? new StringBuilder().append(" Execute SQL：").append(sql.replaceAll("[\\s]+", StringPool.SPACE)).toString() : null;
+        // 程式碼生成器
+        AutoGenerator mpg = getAutoGenerator(packagePath, prefix, tableName, getPostgresqlDataSourceConfig());
+        mpg.execute();
+        if (tableName == null) {
+            System.err.println(" Generator Success !");
+        } else {
+            System.err.println(" TableName【 " + tableName + " 】" + "Generator Success !");
+
+        }
     }
+
+
 }

@@ -5,20 +5,20 @@ layui.define(['config', 'crown', 'layer'], function (exports) {
     var layer = layui.layer;
 
     var index = {
-        // 渲染左侧导航栏
+        // 渲染左側導航欄
         initLeftNav: function () {
             var menus = config.getMenus();
             $('.layui-layout-admin .layui-side').vm({menus: menus});
             crown.activeNav(Q.lash);
         },
-        // 路由注册
+        // 路由註冊
         initRouter: function () {
             index.regRouter(config.getMenus());
             Q.init({
                 index: 'user'
             });
         },
-        // 使用递归循环注册
+        // 使用遞迴迴圈註冊
         regRouter: function (menus) {
             $.each(menus, function (i, data) {
                 if (data.router) {
@@ -31,7 +31,7 @@ layui.define(['config', 'crown', 'layer'], function (exports) {
                 }
             });
         },
-        // 从服务器获取登录用户的信息
+        // 從伺服器獲取登入使用者的資訊
         getUser: function (success) {
             crown.get('/account/info', {}, function (data) {
                 config.putUser(data.result);
@@ -39,29 +39,29 @@ layui.define(['config', 'crown', 'layer'], function (exports) {
             });
         },
 
-        // 页面元素绑定事件监听
+        // 頁面元素繫結事件監聽
         bindEvent: function () {
-            // 退出登录
+            // 退出登入
             $('#logout').click(function () {
-                layer.confirm('确定退出登录？', function (i) {
+                layer.confirm('確定退出登入？', function (i) {
                     layer.close(i);
                     config.removeAll();
                     location.replace('login.html');
                 });
             });
-            // 主题设置
+            // 主題設定
             $('#setTheme').click(function () {
                 crown.popupRight('components/tpl/theme.html');
             });
-            // 修改密码
+            // 修改密碼
             $('#setPassword').click(function () {
                 crown.popupRight('components/tpl/password.html');
             });
-            // 个人信息
+            // 個人資訊
             $('#setInfo').click(function () {
                 crown.popupRight('components/tpl/userinfo.html');
             });
-            // 消息
+            // 訊息
             $('#btnMessage').click(function () {
                 crown.popupRight('components/tpl/message.html');
             });
