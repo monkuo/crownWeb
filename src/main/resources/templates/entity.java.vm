@@ -38,7 +38,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * ${table.comment}
+ * ${entity}
  * </p>
  *
  * @author ${author}

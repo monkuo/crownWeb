@@ -36,12 +36,12 @@ import ${superControllerClassPackage};
 
 /**
  * <p>
- * $!{table.comment} 前端控制器
+ * ${entity} 前端控制器
  * </p>
  *
  * @author ${author}
  */
-@Api(tags = {"${entity}"}, description = "${table.comment}相關介面")
+@Api(tags = {"${entity}"}, description = "${entity} 相關介面")
 #if(${restControllerStyle})
 @RestController
 #else

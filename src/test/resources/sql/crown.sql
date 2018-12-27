@@ -217,3 +217,26 @@ ALTER SEQUENCE sys_customer_seq RESTART WITH 3;
 BEGIN;
 INSERT INTO sys_customer VALUES ('1', '一號客戶', '1', '1', '2018-12-16 09:34:43', '2018-12-16 09:34:43', '一號客戶');
 COMMIT;
+
+-- ----------------------------
+--  Table structure for `sys_process`
+-- ----------------------------
+DROP TABLE IF EXISTS sys_process;
+DROP SEQUENCE IF EXISTS sys_process_seq;
+CREATE SEQUENCE sys_process_seq;
+
+CREATE TABLE sys_process (
+    name character varying(20) NOT NULL,
+    sort smallint NOT NULL,
+    status smallint DEFAULT 1 NOT NULL,
+    id smallint DEFAULT nextval('public.process_id_seq'::regclass) NOT NULL
+);
+
+ALTER SEQUENCE sys_process_seq RESTART WITH 6;
+
+-- ----------------------------
+--  Records of `sys_process`
+-- ----------------------------
+BEGIN;
+INSERT INTO sys_process VALUES ('噴砂', 5, 1, 1),('拋光', 2, 1, 2),('清洗', 3, 1, 3),('磨砂', 1, 1, 4),('髮線', 4, 1, 5);
+COMMIT;

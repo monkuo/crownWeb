@@ -36,10 +36,10 @@ public class MysqlGenerator extends SuperGenerator {
      * MySQL generator
      * </p>
      */
-    public void generator(String tableName) {
+    public void generator(String packagePath, String prefix, String tableName) {
 
         // 程式碼生成器
-        AutoGenerator mpg = getAutoGenerator(tableName, getMysqlDataSourceConfig());
+        AutoGenerator mpg = getAutoGenerator(packagePath, prefix, tableName, getMysqlDataSourceConfig());
         mpg.execute();
         if (tableName == null) {
             System.err.println(" Generator Success !");

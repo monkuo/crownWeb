@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
- * $!{table.comment} 服務實作類
+ * ${entity} 服務實作類
  * </p>
  *
  * @author ${author}

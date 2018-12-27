@@ -18,25 +18,35 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package ${package.Mapper};
+package cc.okbone.model.entity;
 
-import org.apache.ibatis.annotations.Mapper;
+import com.baomidou.mybatisplus.annotation.TableName;
+import org.crown.framework.model.BaseModel;
 
-import ${package.Entity}.${entity};
-import ${superMapperClassPackage};
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 
 /**
  * <p>
- * ${entity} Mapper 介面
+ * Process
  * </p>
  *
- * @author ${author}
+ * @author O.K.Bone
  */
-#if(${kotlin})
-interface ${table.mapperName} : ${superMapperClass}<${entity}>
-#else
-@Mapper
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+@TableName("process")
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+public class Process extends BaseModel {
 
-        }
-#end
+private static final long serialVersionUID=1L;
+
+private String processId;
+private String technologyPlanId;
+private Integer sequence;
+private Integer quota;
+
+}

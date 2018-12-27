@@ -25,7 +25,7 @@ import ${superServiceClassPackage};
 
 /**
  * <p>
- * $!{table.comment} 服務類
+ * ${entity} 服務類
  * </p>
  *
  * @author ${author}

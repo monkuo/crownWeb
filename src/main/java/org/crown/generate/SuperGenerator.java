@@ -94,18 +94,18 @@ public class SuperGenerator {
                 .setTablePrefix(prefix)// 去除字首
                 .setNaming(NamingStrategy.underline_to_camel)// 表名生成策略
                 //自定義實體父類
-                .setSuperEntityClass("com.okbone.framework.model.BaseModel")
+                .setSuperEntityClass("org.crown.framework.model.BaseModel")
                 // 自定義實體，公共欄位
                 .setSuperEntityColumns("id")
                 .setTableFillList(tableFillList)
                 // 自定義 mapper 父類
-                .setSuperMapperClass("com.okbone.framework.mapper.BaseMapper")
+                .setSuperMapperClass("org.crown.framework.mapper.BaseMapper")
                 // 自定義 controller 父類
-                .setSuperControllerClass("com.okbone.framework.controller.SuperController")
+                .setSuperControllerClass("org.crown.framework.controller.SuperController")
                 // 自定義 service 實現類父類
-                .setSuperServiceImplClass("com.okbone.framework.service.impl.BaseServiceImpl")
+                .setSuperServiceImplClass("org.crown.framework.service.impl.BaseServiceImpl")
                 // 自定義 service 介面父類
-                .setSuperServiceClass("com.okbone.framework.service.BaseService")
+                .setSuperServiceClass("org.crown.framework.service.BaseService")
                 // 【實體】是否生成欄位常量（預設 false）
                 .setEntityColumnConstant(true)
                 // 【實體】是否為構建者模型（預設 false）
@@ -215,7 +215,7 @@ public class SuperGenerator {
                 .setBaseColumnList(false)// XML columList
                 .setKotlin(false) //是否生成 kotlin 程式碼
                 .setOpen(false)
-                .setAuthor("Caratacus") //作者
+                .setAuthor("O.K.Bone") //作者
                 //自定義檔案命名，注意 %s 會自動填充表實體屬性！
                 .setEntityName("%s")
                 .setMapperName("%sMapper")

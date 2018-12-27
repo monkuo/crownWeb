@@ -34,6 +34,6 @@ public class MysqlGeneratorTest {
     @Test
     public void generator() {
         MysqlGenerator mysqlGenerator = new MysqlGenerator();
-        mysqlGenerator.generator("sys_user");
+        mysqlGenerator.generator("com.crown","sys_", "sys_user");
     }
 }

@@ -18,25 +18,18 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package ${package.Mapper};
+package cc.okbone.service;
 
-import org.apache.ibatis.annotations.Mapper;
-
-import ${package.Entity}.${entity};
-import ${superMapperClassPackage};
+import cc.okbone.model.entity.Process;
+import org.crown.framework.service.BaseService;
 
 /**
  * <p>
- * ${entity} Mapper 介面
+ * Process 服務類
  * </p>
  *
- * @author ${author}
+ * @author O.K.Bone
  */
-#if(${kotlin})
-interface ${table.mapperName} : ${superMapperClass}<${entity}>
-#else
-@Mapper
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+public interface IProcessService extends BaseService<Process> {
 
         }
-#end

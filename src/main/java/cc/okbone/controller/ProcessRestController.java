@@ -18,25 +18,27 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package ${package.Mapper};
+package cc.okbone.controller;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 
-import ${package.Entity}.${entity};
-import ${superMapperClassPackage};
+import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.RestController;
+import org.crown.framework.controller.SuperController;
 
 /**
  * <p>
- * ${entity} Mapper 介面
+ * Process 前端控制器
  * </p>
  *
- * @author ${author}
+ * @author O.K.Bone
  */
-#if(${kotlin})
-interface ${table.mapperName} : ${superMapperClass}<${entity}>
-#else
-@Mapper
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+@Api(tags = {"Process"}, description = "Process 相關介面")
+@RestController
+@RequestMapping(value = "/process", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Validated
+public class ProcessRestController extends SuperController {
 
         }
-#end
