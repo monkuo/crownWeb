@@ -34,6 +34,6 @@ public class PostgresqlGeneratorTest {
     @Test
     public void generator() {
         PostgresqlGenerator generator = new PostgresqlGenerator();
-        generator.generator("sys_customer");
+        generator.generator("com.okbone","ok_", "customer");
     }
 }

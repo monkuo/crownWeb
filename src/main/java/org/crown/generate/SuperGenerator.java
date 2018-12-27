@@ -71,9 +71,9 @@ public class SuperGenerator {
      *
      * @return
      */
-    protected PackageConfig getPackageConfig() {
+    protected PackageConfig getPackageConfig(String packagePath) {
         return new PackageConfig()
-                .setParent("com.okbone")
+                .setParent(packagePath)
                 .setController("controller")
                 .setEntity("model.entity")
                 .setMapper("mapper")
@@ -87,11 +87,11 @@ public class SuperGenerator {
      * @param tableName
      * @return
      */
-    protected StrategyConfig getStrategyConfig(String tableName) {
+    protected StrategyConfig getStrategyConfig(String prefix, String tableName) {
         List<TableFill> tableFillList = getTableFills();
         return new StrategyConfig()
                 .setCapitalMode(false)// 全局大寫命名
-                .setTablePrefix("sys_")// 去除字首
+                .setTablePrefix(prefix)// 去除字首
                 .setNaming(NamingStrategy.underline_to_camel)// 表名生成策略
                 //自定義實體父類
                 .setSuperEntityClass("com.okbone.framework.model.BaseModel")
@@ -260,7 +260,7 @@ public class SuperGenerator {
      * @param tableName
      * @return
      */
-    protected AutoGenerator getAutoGenerator(String tableName, DataSourceConfig config) {
+    protected AutoGenerator getAutoGenerator(String packagePath, String prefix, String tableName, DataSourceConfig config) {
         return new AutoGenerator()
                 // 全局配置
                 .setGlobalConfig(getGlobalConfig())
@@ -268,9 +268,9 @@ public class SuperGenerator {
                 .setDataSource(config)
 //                .setDataSource(getMysqlDataSourceConfig())
                 // 策略配置
-                .setStrategy(getStrategyConfig(tableName))
+                .setStrategy(getStrategyConfig(prefix, tableName))
                 // 包配置
-                .setPackageInfo(getPackageConfig())
+                .setPackageInfo(getPackageConfig(packagePath))
                 // 注入自定義配置，可以在 VM 中使用 cfg.abc 設定的值
                 .setCfg(getInjectionConfig())
                 .setTemplate(getTemplateConfig());

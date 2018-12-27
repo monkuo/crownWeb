@@ -3,25 +3,25 @@
 <mapper namespace="${package.Mapper}.${table.mapperName}">
 
     #if(${enableCache})
-        <!-- 开启二级缓存 -->
+        <!-- 開啟二級快取 -->
         <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
     #end
     #if(${baseResultMap})
-        <!-- 通用查询映射结果 -->
+        <!-- 通用查詢對映結果 -->
         <resultMap id="BaseResultMap" type="${package.Entity}.${entity}">
             #foreach($field in ${table.fields})
-                #if(${field.keyFlag})##生成主键排在第一位
+                #if(${field.keyFlag})##生成主鍵排在第一位
                     <id column="${field.name}" property="${field.propertyName.substring(0,1).toLowerCase()} + ""
                     +${field.propertyName.substring(1)}" />
                 #end
             #end
-            #foreach($field in ${table.commonFields})##生成公共字段
+            #foreach($field in ${table.commonFields})##生成公共欄位
                 <result column="${field.name}" property="${field.propertyName.substring(0,1).toLowerCase()} + ""
                 +${field.propertyName.substring(1)}" />
             #end
             #foreach($field in ${table.fields})
-                #if(!${field.keyFlag})##生成普通字段
+                #if(!${field.keyFlag})##生成普通欄位
                     <result column="${field.name}" property="${field.propertyName.substring(0,1).toLowerCase()} + ""
                     +${field.propertyName.substring(1)}" />
                 #end
@@ -30,7 +30,7 @@
 
     #end
     #if(${baseColumnList})
-        <!-- 通用查询结果列 -->
+        <!-- 通用查詢結果列 -->
         <sql id="Base_Column_List">
 #foreach($field in ${table.commonFields})
             #if(${field.name} == ${field.propertyName.substring(0,1).toLowerCase()} +

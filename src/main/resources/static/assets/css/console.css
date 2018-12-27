@@ -1,4 +1,4 @@
-/** 卡片轮播图样式 */
+/** 卡片輪播圖樣式 */
 .crown-carousel .layui-carousel-ind {
     position: absolute;
     top: -41px;
@@ -17,7 +17,7 @@
     background-color: #999;
 }
 
-/** 广告位轮播图 */
+/** 廣告位輪播圖 */
 .crown-news .layui-carousel-ind {
     height: 45px;
 }

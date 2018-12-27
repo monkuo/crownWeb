@@ -69,7 +69,7 @@ body {
     color: #CF1900
 }
 
-/** 底部样式 */
+/** 底部樣式 */
 .login-footer {
     text-align: center;
     line-height: 30px;
@@ -90,7 +90,7 @@ body {
     color: rgba(255, 255, 255, 0.4) !important;
 }
 
-/** 头部样式 */
+/** 頭部樣式 */
 .login-header {
     font-size: 20px;
     font-weight: bold;
@@ -102,7 +102,7 @@ body {
     height: 40px;
 }
 
-/** 移动设备样式 */
+/** 移動裝置樣式 */
 @media screen and (min-height: 590px) {
     .login-footer {
         position: absolute;
@@ -117,7 +117,7 @@ body {
     }
 }
 
-/** 辅助样式 */
+/** 輔助樣式 */
 .layui-link {
     color: #029789 !important;
 }

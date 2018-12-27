@@ -1,95 +1,95 @@
 layui.define(function (exports) {
 
     var config = {
-        serverUrl: 'http://localhost:8088', // 服务器地址
+        serverUrl: 'http://localhost:8088', // 伺服器地址
         scope: 'crown',  // 作用域
-        autoRender: false,  // 窗口大小改变后是否自动重新渲染表格，解决layui数据表格非响应式的问题
+        autoRender: false,  // 視窗大小改變後是否自動重新渲染表格，解決layui資料表格非響應式的問題
         request: {
-            //页码的参数名称，默认：page
+            //頁碼的參數名稱，預設：page
             pageName: 'cursor',
-            //每页数据量的参数名，默认：limit
+            //每頁資料量的參數名，預設：limit
             limitName: 'limit'
         },
-        parseData: function (res) { //res 即为原始返回的数据
+        parseData: function (res) { //res 即為原始返回的資料
             return {
-                "code": res.status, //解析接口状态
-                "msg": res.msg, //解析提示文本
-                "count": res.result.total, //解析数据长度
-                "data": res.result.records //解析数据列表
+                "code": res.status, //解析介面狀態
+                "msg": res.msg, //解析提示文字
+                "count": res.result.total, //解析資料長度
+                "data": res.result.records //解析資料列表
             };
         },
         response: {
-            //规定成功的状态码，默认：0
+            //規定成功的狀態碼，預設：0
             statusCode: 200
         },
-        // 清空本地缓存
+        // 清空本地快取
         removeAll: function () {
             layui.data(config.scope, null);
         },
-        // 获取缓存的token
+        // 獲取快取的token
         getToken: function () {
             var token = layui.data(config.scope).token;
             if (token) {
                 return JSON.parse(token);
             }
         },
-        // 缓存token
+        // 快取token
         putToken: function (token) {
             layui.data(config.scope, {
                 key: 'token',
                 value: JSON.stringify('Bearer ' + token)
             });
         },
-        // 获取缓存的菜单
+        // 獲取快取的選單
         getMenus: function () {
             var menus = layui.data(config.scope).menus;
             if (menus) {
                 return JSON.parse(menus);
             }
         },
-        // 缓存菜单
+        // 快取選單
         putMenus: function (menus) {
             layui.data(config.scope, {
                 key: 'menus',
                 value: JSON.stringify(menus)
             });
         },
-        // 获取缓存的权限按钮
+        // 獲取快取的許可權按鈕
         getPermButtons: function () {
             var permButtons = layui.data(config.scope).permButtons;
             if (permButtons) {
                 return JSON.parse(permButtons);
             }
         },
-        // 缓存权限按钮
+        // 快取許可權按鈕
         putPermButtons: function (permButtons) {
             layui.data(config.scope, {
                 key: 'permButtons',
                 value: JSON.stringify(permButtons)
             });
         },
-        // 获取缓存的token
+        // 獲取快取的token
         getUid: function () {
             var uid = layui.data(config.scope).uid;
             if (uid) {
                 return JSON.parse(uid);
             }
         },
-        // 缓存Uid
+        // 快取Uid
         putUid: function (uid) {
             layui.data(config.scope, {
                 key: 'uid',
                 value: JSON.stringify(uid)
             });
         },
-        // 当前登录的用户
+        // 當前登入的使用者
         getUser: function () {
             var user = layui.data(config.scope).user;
             if (user) {
                 return JSON.parse(user);
             }
         },
-        // 缓存user
+        // 快取user
         putUser: function (user) {
             layui.data(config.scope, {
                 key: 'user',
