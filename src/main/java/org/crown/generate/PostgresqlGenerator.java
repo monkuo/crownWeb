@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2022 Caratacus, (caratacus@qq.com).
+ * Copyright (c) 2018 O.K.Bone.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -24,22 +24,22 @@ import com.baomidou.mybatisplus.generator.AutoGenerator;
 
 /**
  * <p>
- * Mysql程式碼生成器
+ * PostgreSQL程式碼生成器
  * </p>
  *
- * @author Caratacus
+ * @author Benson
  */
-public class MysqlGenerator extends SuperGenerator {
+public class PostgresqlGenerator extends SuperGenerator {
 
     /**
      * <p>
-     * MySQL generator
+     * PostgreSQL generator
      * </p>
      */
     public void generator(String packagePath, String prefix, String tableName) {
 
         // 程式碼生成器
-        AutoGenerator mpg = getAutoGenerator(packagePath, prefix, tableName, getMysqlDataSourceConfig());
+        AutoGenerator mpg = getAutoGenerator(packagePath, prefix, tableName, getPostgresqlDataSourceConfig());
         mpg.execute();
         if (tableName == null) {
             System.err.println(" Generator Success !");

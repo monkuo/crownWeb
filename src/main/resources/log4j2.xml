@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出。-->
-<!--monitorInterval：Log4j2能够自动检测修改配置 文件和重新配置本身，设置间隔秒数。-->
+<!--status，這個用於設定log4j2自身內部的資訊輸出，可以不設定，當設定成trace時，你會看到log4j2內部各種詳細輸出。-->
+<!--monitorInterval：Log4j2能夠自動檢測修改配置 檔案和重新配置本身，設定間隔秒數。-->
 <Configuration status="off" monitorInterval="600">
     <properties>
-        <!--通用变量-->
+        <!--通用變數-->
         <property name="LOG_HOME" value="logs"/>
         <property name="ERROR_LOG_FILE_NAME" value="error"/>
         <property name="INFO_LOG_FILE_NAME" value="info"/>
@@ -18,11 +18,11 @@
     <Appenders>
         <!--console-->
         <Console name="CONSOLE" target="SYSTEM_OUT">
-            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <!--控制檯只輸出level及以上級別的資訊（onMatch），其他的直接拒絕（onMismatch）-->
             <Filters>
                 <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY"/>
             </Filters>
-            <!--输出日志的格式-->
+            <!--輸出日誌的格式-->
             <PatternLayout pattern="${CONSOLE_LOG_PATTERN}"/>
         </Console>
         <RollingRandomAccessFile name="ERROR_LOG"
@@ -57,8 +57,7 @@
     </Appenders>
     <Loggers>
         <!--AsyncLogger-->
-        <AsyncLogger name="org.crown" level="info" includeLocation="true"/>
-        <AsyncLogger name="org.crown.framework.p6spy" level="debug" includeLocation="true"/>
+        <AsyncLogger name="org.crown" level="debug" includeLocation="true"/>
         <!--AsyncRoot-->
         <AsyncRoot level="warn" includeLocation="true">
             <appender-ref ref="CONSOLE"/>

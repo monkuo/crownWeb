@@ -19,6 +19,7 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
+import com.baomidou.mybatisplus.generator.config.converts.PostgreSqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
@@ -27,7 +28,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 /**
  * <p>
- * 代码生成器父类
+ * 程式碼生成器父類
  * </p>
  *
  * @author Caratacus
@@ -35,7 +36,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 public class SuperGenerator {
 
     /**
-     * 获取TemplateConfig
+     * 獲取TemplateConfig
      *
      * @return
      */
@@ -44,7 +45,7 @@ public class SuperGenerator {
     }
 
     /**
-     * 获取InjectionConfig
+     * 獲取InjectionConfig
      *
      * @return
      */
@@ -56,8 +57,8 @@ public class SuperGenerator {
                 this.setMap(map);
             }
         }.setFileOutConfigList(Collections.<FileOutConfig>singletonList(new FileOutConfig(
-                "/templates/mapper.xml.vm") {
-            // 自定义输出文件目录
+            "/templates/mapper.xml.vm") {
+            // 自定義輸出檔案目錄
             @Override
             public String outputFile(TableInfo tableInfo) {
                 return getResourcePath() + "/mapper/" + tableInfo.getEntityName() + "Mapper.xml";
@@ -66,66 +67,66 @@ public class SuperGenerator {
     }
 
     /**
-     * 获取PackageConfig
+     * 獲取PackageConfig
      *
      * @return
      */
-    protected PackageConfig getPackageConfig() {
+    protected PackageConfig getPackageConfig(String packagePath) {
         return new PackageConfig()
-                .setParent("org.crown")
-                .setController("controller")
-                .setEntity("model.entity")
-                .setMapper("mapper")
-                .setService("service")
-                .setServiceImpl("service.impl");
+            .setParent(packagePath)
+            .setController("controller")
+            .setEntity("model.entity")
+            .setMapper("mapper")
+            .setService("service")
+            .setServiceImpl("service.impl");
     }
 
     /**
-     * 获取StrategyConfig
+     * 獲取StrategyConfig
      *
      * @param tableName
      * @return
      */
-    protected StrategyConfig getStrategyConfig(String tableName) {
+    protected StrategyConfig getStrategyConfig(String prefix, String tableName) {
         List<TableFill> tableFillList = getTableFills();
         return new StrategyConfig()
-                .setCapitalMode(false)// 全局大写命名
-                .setTablePrefix("sys_")// 去除前缀
-                .setNaming(NamingStrategy.underline_to_camel)// 表名生成策略
-                //.setInclude(new String[] { "user" }) // 需要生成的表
-                //自定义实体父类
-                .setSuperEntityClass("org.crown.framework.model.BaseModel")
-                // 自定义实体，公共字段
-                .setSuperEntityColumns("id")
-                .setTableFillList(tableFillList)
-                // 自定义 mapper 父类
-                .setSuperMapperClass("org.crown.framework.mapper.BaseMapper")
-                // 自定义 controller 父类
-                .setSuperControllerClass("org.crown.framework.controller.SuperController")
-                // 自定义 service 实现类父类
-                .setSuperServiceImplClass("org.crown.framework.service.impl.BaseServiceImpl")
-                // 自定义 service 接口父类
-                .setSuperServiceClass("org.crown.framework.service.BaseService")
-                // 【实体】是否生成字段常量（默认 false）
-                .setEntityColumnConstant(true)
-                // 【实体】是否为构建者模型（默认 false）
-                .setEntityBuilderModel(false)
-                // 【实体】是否为lombok模型（默认 false）<a href="https://projectlombok.org/">document</a>
-                .setEntityLombokModel(true)
-                // Boolean类型字段是否移除is前缀处理
-                .setEntityBooleanColumnRemoveIsPrefix(true)
-                .setRestControllerStyle(false)
-                .setRestControllerStyle(true)
-                .setInclude(tableName);
+            .setCapitalMode(false)// 全局大寫命名
+            .setTablePrefix(prefix)// 去除字首
+            .setNaming(NamingStrategy.underline_to_camel)// 表名生成策略
+            //自定義實體父類
+            .setSuperEntityClass("org.crown.framework.model.BaseModel")
+            // 自定義實體，公共欄位
+            .setSuperEntityColumns("id")
+            .setTableFillList(tableFillList)
+            // 自定義 mapper 父類
+            .setSuperMapperClass("org.crown.framework.mapper.BaseMapper")
+            // 自定義 controller 父類
+            .setSuperControllerClass("org.crown.framework.controller.SuperController")
+            // 自定義 service 實現類父類
+            .setSuperServiceImplClass("org.crown.framework.service.impl.BaseServiceImpl")
+            // 自定義 service 介面父類
+            .setSuperServiceClass("org.crown.framework.service.BaseService")
+            // 【實體】是否生成欄位常量（預設 false）
+            .setEntityColumnConstant(true)
+            // 【實體】是否為構建者模型（預設 false）
+            .setEntityBuilderModel(false)
+            // 【實體】是否為lombok模型（預設 false）<a href="https://projectlombok.org/">document</a>
+            .setEntityLombokModel(true)
+            // Boolean類型欄位是否移除is字首處理
+            .setEntityBooleanColumnRemoveIsPrefix(true)
+            .setRestControllerStyle(false)
+            .setRestControllerStyle(true)
+            //.setInclude(new String[] { "user" }) // 需要生成的表
+            .setInclude(tableName);
     }
 
     /**
-     * 获取TableFill策略
+     * 獲取TableFill策略
      *
      * @return
      */
     protected List<TableFill> getTableFills() {
-        // 自定义需要填充的字段
+        // 自定義需要填充的欄位
         List<TableFill> tableFillList = new ArrayList<>();
         tableFillList.add(new TableFill("createTime", FieldFill.INSERT));
         tableFillList.add(new TableFill("updateTime", FieldFill.INSERT_UPDATE));
@@ -135,68 +136,98 @@ public class SuperGenerator {
     }
 
     /**
-     * 获取DataSourceConfig
+     * 獲取DataSourceConfig
      *
      * @return
      */
-    protected DataSourceConfig getDataSourceConfig() {
+    protected DataSourceConfig getMysqlDataSourceConfig() {
         return new DataSourceConfig()
-                .setDbType(DbType.MYSQL)// 数据库类型
-                .setTypeConvert(new MySqlTypeConvert() {
-                    @Override
-                    public IColumnType processTypeConvert(GlobalConfig globalConfig, String fieldType) {
-                        if (fieldType.toLowerCase().contains("bit")) {
-                            return DbColumnType.BOOLEAN;
-                        }
-                        if (fieldType.toLowerCase().contains("tinyint")) {
-                            return DbColumnType.BOOLEAN;
-                        }
-                        if (fieldType.toLowerCase().contains("date")) {
-                            return DbColumnType.LOCAL_DATE;
-                        }
-                        if (fieldType.toLowerCase().contains("time")) {
-                            return DbColumnType.LOCAL_TIME;
-                        }
-                        if (fieldType.toLowerCase().contains("datetime")) {
-                            return DbColumnType.LOCAL_DATE_TIME;
-                        }
-                        return super.processTypeConvert(globalConfig, fieldType);
+            .setDbType(DbType.MYSQL)// 資料庫類型
+            .setTypeConvert(new MySqlTypeConvert() {
+                @Override
+                public IColumnType processTypeConvert(GlobalConfig globalConfig, String fieldType) {
+                    if (fieldType.toLowerCase().contains("bit")) {
+                        return DbColumnType.BOOLEAN;
                     }
-                })
-                .setDriverName("com.mysql.cj.jdbc.Driver")
-                .setUsername("root")
-                .setPassword("521")
-                .setUrl("jdbc:mysql://127.0.0.1:3306/crown?characterEncoding=utf8");
+                    if (fieldType.toLowerCase().contains("tinyint")) {
+                        return DbColumnType.BOOLEAN;
+                    }
+                    if (fieldType.toLowerCase().contains("date")) {
+                        return DbColumnType.LOCAL_DATE;
+                    }
+                    if (fieldType.toLowerCase().contains("time")) {
+                        return DbColumnType.LOCAL_TIME;
+                    }
+                    if (fieldType.toLowerCase().contains("datetime")) {
+                        return DbColumnType.LOCAL_DATE_TIME;
+                    }
+                    return super.processTypeConvert(globalConfig, fieldType);
+                }
+            })
+            .setDriverName("com.mysql.cj.jdbc.Driver")
+            .setUsername("root")
+            .setPassword("521")
+            .setUrl("jdbc:mysql://127.0.0.1:3306/crown?characterEncoding=utf8");
+    }
+
+    protected DataSourceConfig getPostgresqlDataSourceConfig() {
+        return new DataSourceConfig()
+            .setDbType(DbType.POSTGRE_SQL)// 資料庫類型
+            .setTypeConvert(new PostgreSqlTypeConvert() {
+                @Override
+                public IColumnType processTypeConvert(GlobalConfig globalConfig, String fieldType) {
+                    if (fieldType.toLowerCase().contains("bit")) {
+                        return DbColumnType.BOOLEAN;
+                    }
+                    if (fieldType.toLowerCase().contains("tinyint")) {
+                        return DbColumnType.BOOLEAN;
+                    }
+                    if (fieldType.toLowerCase().contains("date")) {
+                        return DbColumnType.LOCAL_DATE;
+                    }
+                    if (fieldType.toLowerCase().contains("time")) {
+                        return DbColumnType.LOCAL_TIME;
+                    }
+                    if (fieldType.toLowerCase().contains("datetime")) {
+                        return DbColumnType.LOCAL_DATE_TIME;
+                    }
+                    return super.processTypeConvert(globalConfig, fieldType);
+                }
+            })
+            .setDriverName("org.postgresql.Driver")
+            .setUsername("zvntvkzoyjjuwt")
+            .setPassword("f2c5b78ca2f7ac7b0b1d0baa4ab30150a1e7d9f0c9fd964d71a5b40732643582")
+            .setUrl("jdbc:postgresql://ec2-54-83-38-174.compute-1.amazonaws.com:5432/d5a87ip5cr3ba3?allow=true");
     }
 
     /**
-     * 获取GlobalConfig
+     * 獲取GlobalConfig
      *
      * @return
      */
     protected GlobalConfig getGlobalConfig() {
         return new GlobalConfig()
-                .setOutputDir(getJavaPath())//输出目录
-                .setFileOverride(false)// 是否覆盖文件
-                .setActiveRecord(false)// 开启 activeRecord 模式
-                .setEnableCache(false)// XML 二级缓存
-                .setBaseResultMap(false)// XML ResultMap
-                .setBaseColumnList(false)// XML columList
-                .setKotlin(false) //是否生成 kotlin 代码
-                .setOpen(false)
-                .setAuthor("Caratacus") //作者
-                //自定义文件命名，注意 %s 会自动填充表实体属性！
-                .setEntityName("%s")
-                .setMapperName("%sMapper")
-                .setXmlName("%sMapper")
-                .setServiceName("I%sService")
-                .setServiceImplName("%sServiceImpl")
-                .setControllerName("%sRestController");
+            .setOutputDir(getJavaPath())//輸出目錄
+            .setFileOverride(false)// 是否覆蓋檔案
+            .setActiveRecord(false)// 開啟 activeRecord 模式
+            .setEnableCache(false)// XML 二級快取
+            .setBaseResultMap(false)// XML ResultMap
+            .setBaseColumnList(false)// XML columList
+            .setKotlin(false) //是否生成 kotlin 程式碼
+            .setOpen(false)
+            .setAuthor("O.K.Bone") //作者
+            //自定義檔案命名，注意 %s 會自動填充表實體屬性！
+            .setEntityName("%s")
+            .setMapperName("%sMapper")
+            .setXmlName("%sMapper")
+            .setServiceName("I%sService")
+            .setServiceImplName("%sServiceImpl")
+            .setControllerName("%sRestController");
     }
 
 
     /**
-     * 获取根目录
+     * 獲取根目錄
      *
      * @return
      */
@@ -206,7 +237,7 @@ public class SuperGenerator {
     }
 
     /**
-     * 获取JAVA目录
+     * 獲取JAVA目錄
      *
      * @return
      */
@@ -215,7 +246,7 @@ public class SuperGenerator {
     }
 
     /**
-     * 获取Resource目录
+     * 獲取Resource目錄
      *
      * @return
      */
@@ -224,24 +255,25 @@ public class SuperGenerator {
     }
 
     /**
-     * 获取AutoGenerator
+     * 獲取AutoGenerator
      *
      * @param tableName
      * @return
      */
-    protected AutoGenerator getAutoGenerator(String tableName) {
+    protected AutoGenerator getAutoGenerator(String packagePath, String prefix, String tableName, DataSourceConfig config) {
         return new AutoGenerator()
-                // 全局配置
-                .setGlobalConfig(getGlobalConfig())
-                // 数据源配置
-                .setDataSource(getDataSourceConfig())
-                // 策略配置
-                .setStrategy(getStrategyConfig(tableName))
-                // 包配置
-                .setPackageInfo(getPackageConfig())
-                // 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
-                .setCfg(getInjectionConfig())
-                .setTemplate(getTemplateConfig());
+            // 全局配置
+            .setGlobalConfig(getGlobalConfig())
+            // 資料來源配置
+            .setDataSource(config)
+            //                .setDataSource(getMysqlDataSourceConfig())
+            // 策略配置
+            .setStrategy(getStrategyConfig(prefix, tableName))
+            // 包配置
+            .setPackageInfo(getPackageConfig(packagePath))
+            // 注入自定義配置，可以在 VM 中使用 cfg.abc 設定的值
+            .setCfg(getInjectionConfig())
+            .setTemplate(getTemplateConfig());
     }
 
 }
