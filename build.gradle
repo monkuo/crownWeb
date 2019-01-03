@@ -112,7 +112,7 @@ jacocoTestReport {
                     '**/common/exception/*.class',
                     '**/common/spring/IEnumConverterFactory.class',
                     '**/framework/converter/BeanConverter.class',
-                    '**/framework/emuns/ErrorCodeEnum.class',
+                    '**/framework/enums/ErrorCodeEnum.class',
                     '**/framework/exception/*.class',
                     '**/framework/responses/FailedResponse.class',
                     '**/framework/utils/ApiAssert.class',

@@ -18,28 +18,41 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.crown.emuns;
+package org.crown.enums;
 
+import org.crown.common.exception.UnknownEnumException;
 import org.crown.framework.emuns.IEnum;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * <p>
- * 状态枚举
+ * 权限类型枚举
  * </p>
  *
  * @author Caratacus
  */
-public enum StatusEnum implements IEnum {
+public enum AuthTypeEnum implements IEnum {
 
-    NORMAL(0), DISABLE(1);
+    /**
+     * 需要登录
+     */
+    LOGIN(1),
+    /**
+     * 开放,无需鉴权
+     */
+    OPEN(2),
+    /**
+     * 需要鉴定是否包含权限
+     */
+    AUTH(3);
 
     @EnumValue
     private final int value;
 
-    StatusEnum(final int value) {
+    AuthTypeEnum(final int value) {
         this.value = value;
     }
 
@@ -47,5 +60,15 @@ public enum StatusEnum implements IEnum {
     @JsonValue
     public int getValue() {
         return this.value;
+    }
+
+    @JsonCreator
+    public static AuthTypeEnum getEnum(int value) {
+        for (AuthTypeEnum menuTypeEnum : AuthTypeEnum.values()) {
+            if (menuTypeEnum.getValue() == value) {
+                return menuTypeEnum;
+            }
+        }
+        throw new UnknownEnumException("Error: Invalid AuthTypeEnum type value: " + value);
     }
 }
