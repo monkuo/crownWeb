@@ -10,7 +10,7 @@
         <!-- 搜尋條件 -->
         <div class="layui-form toolbar">
             <form id="searchForm" onsubmit="return false;">
-                賬號：<input name="loginName" class="layui-input search-input" type="text" placeholder="輸入賬號"/>&emsp;
+                帳號：<input name="loginName" class="layui-input search-input" type="text" placeholder="輸入帳號"/>&emsp;
                 使用者名稱：<input name="nickname" class="layui-input search-input" type="text" placeholder="輸入使用者名稱"/>&emsp;
                 狀態：<select name="status" lay-verify="">
                 <option value="">請選擇狀態</option>
@@ -76,10 +76,10 @@
             page: true,
             cols: [[
                 {field: 'id', width: 60, title: 'ID'},
-                {field: 'loginName', align: 'center', sort: true, title: '賬號'},
+                {field: 'loginName', align: 'center', sort: true, title: '帳號'},
                 {field: 'nickname', align: 'center', sort: true, title: '使用者名稱'},
                 {field: 'phone', align: 'center', sort: true, title: '手機號'},
-                {field: 'email', align: 'center', sort: true, title: '郵箱'},
+                {field: 'email', align: 'center', sort: true, title: '信箱'},
                 {field: 'createTime', align: 'center', sort: true, title: '建立時間'},
                 {field: 'status', align: 'center', sort: true, templet: '#user-tpl-status', title: '狀態'},
                 {align: 'center', toolbar: '#user-table-bar', title: '操作'}

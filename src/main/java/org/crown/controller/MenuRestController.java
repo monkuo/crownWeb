@@ -54,12 +54,12 @@ import io.swagger.annotations.ApiOperation;
 
 /**
  * <p>
- * 菜单表 前端控制器
+ * 選單表 前端控制器
  * </p>
  *
  * @author Caratacus
  */
-@Api(tags = {"Menu"}, description = "菜单相关接口")
+@Api(tags = {"Menu"}, description = "選單相關介面")
 @RestController
 @RequestMapping(value = "/menus", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Validated
@@ -69,14 +69,14 @@ public class MenuRestController extends SuperController {
     private IMenuService menuService;
 
     @Resources
-    @ApiOperation(value = "查询所有菜单")
+    @ApiOperation(value = "查詢所有選單")
     @GetMapping
     public ApiResponses<List<Menu>> list() {
         return success(menuService.list());
     }
 
     @Resources(auth = AuthTypeEnum.OPEN)
-    @ApiOperation(value = "查询父级菜单(下拉框)")
+    @ApiOperation(value = "查詢父級選單(下拉框)")
     @GetMapping("/combos")
     public ApiResponses<List<ComboDTO>> combos() {
         List<ComboDTO> combos = menuService.entitys(Wrappers.<Menu>lambdaQuery().select(Menu::getId, Menu::getMenuName).in(Menu::getMenuType, MenuTypeEnum.CATALOG, MenuTypeEnum.MENU), e -> {
@@ -89,9 +89,9 @@ public class MenuRestController extends SuperController {
     }
 
     @Resources
-    @ApiOperation(value = "查询单个菜单")
+    @ApiOperation(value = "查詢單個選單")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "菜单ID", required = true, paramType = "path")
+        @ApiImplicitParam(name = "id", value = "選單ID", required = true, paramType = "path")
     })
     @GetMapping("/{id}")
     public ApiResponses<MenuDTO> get(@PathVariable("id") Integer id) {
@@ -99,7 +99,7 @@ public class MenuRestController extends SuperController {
     }
 
     @Resources
-    @ApiOperation(value = "添加菜单")
+    @ApiOperation(value = "新增選單")
     @PostMapping
     public ApiResponses<Void> create(@RequestBody @Validated(MenuPARM.Create.class) MenuPARM menuPARM) {
         Menu menu = menuPARM.convert(Menu.class);
@@ -108,9 +108,9 @@ public class MenuRestController extends SuperController {
     }
 
     @Resources
-    @ApiOperation(value = "修改菜单")
+    @ApiOperation(value = "修改選單")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "菜单ID", required = true, paramType = "path")
+        @ApiImplicitParam(name = "id", value = "選單ID", required = true, paramType = "path")
     })
     @PutMapping("/{id}")
     public ApiResponses<Void> update(@PathVariable("id") Integer id, @RequestBody @Validated(MenuPARM.Update.class) MenuPARM menuPARM) {
@@ -121,9 +121,9 @@ public class MenuRestController extends SuperController {
     }
 
     @Resources
-    @ApiOperation(value = "删除菜单")
+    @ApiOperation(value = "刪除選單")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "菜单ID", required = true, paramType = "path")
+        @ApiImplicitParam(name = "id", value = "選單ID", required = true, paramType = "path")
     })
     @DeleteMapping("/{id}")
     public ApiResponses<Void> delete(@PathVariable("id") Integer id) {
@@ -132,9 +132,9 @@ public class MenuRestController extends SuperController {
     }
 
     @Resources
-    @ApiOperation("设置菜单状态")
+    @ApiOperation("設定選單狀態")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "菜单ID", required = true, paramType = "path")
+        @ApiImplicitParam(name = "id", value = "選單ID", required = true, paramType = "path")
     })
     @PutMapping("/{id}/status")
     public ApiResponses<Void> updateStatus(@PathVariable("id") Integer id, @RequestBody @Validated(MenuPARM.Status.class) MenuPARM menuPARM) {

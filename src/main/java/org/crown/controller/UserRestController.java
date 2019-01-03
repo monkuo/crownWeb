@@ -58,12 +58,12 @@ import io.swagger.annotations.ApiOperation;
 
 /**
  * <p>
- * 系统用户表 前端控制器
+ * 系統使用者表 前端控制器
  * </p>
  *
  * @author Caratacus
  */
-@Api(tags = {"User"}, description = "用户操作相关接口")
+@Api(tags = {"User"}, description = "使用者操作相關介面")
 @RestController
 @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Validated
@@ -73,24 +73,24 @@ public class UserRestController extends SuperController {
     private IUserService userService;
 
     @Resources
-    @ApiOperation("查询所有用户")
+    @ApiOperation("查詢所有使用者")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "loginName", value = "需要检查的账号", paramType = "query"),
-            @ApiImplicitParam(name = "nickname", value = "需要检查的账号", paramType = "query"),
-            @ApiImplicitParam(name = "status", value = "需要检查的账号", paramType = "query")
+        @ApiImplicitParam(name = "loginName", value = "需要檢查的賬號", paramType = "query"),
+        @ApiImplicitParam(name = "nickname", value = "需要檢查的賬號", paramType = "query"),
+        @ApiImplicitParam(name = "status", value = "需要檢查的賬號", paramType = "query")
     })
     @GetMapping
     public ApiResponses<IPage<UserDTO>> page(@RequestParam(value = "loginName", required = false) String loginName,
-                                             @RequestParam(value = "nickname", required = false) String nickname,
-                                             @RequestParam(value = "status", required = false) StatusEnum status) {
+        @RequestParam(value = "nickname", required = false) String nickname,
+        @RequestParam(value = "status", required = false) StatusEnum status) {
         IPage<User> page = userService.page(this.<User>getPage(), Wrappers.<User>lambdaQuery().likeRight(StringUtils.isNotEmpty(loginName), User::getLoginName, loginName).likeRight(StringUtils.isNotEmpty(nickname), User::getNickname, nickname).eq(Objects.nonNull(status), User::getStatus, status));
         return success(page.convert(e -> e.convert(UserDTO.class)));
     }
 
     @Resources
-    @ApiOperation("查询单个用户")
+    @ApiOperation("查詢單個使用者")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID", required = true, paramType = "path")
+        @ApiImplicitParam(name = "id", value = "使用者ID", required = true, paramType = "path")
     })
     @GetMapping("/{id}")
     public ApiResponses<UserDTO> get(@PathVariable("id") Integer id) {
@@ -103,9 +103,9 @@ public class UserRestController extends SuperController {
     }
 
     @Resources
-    @ApiOperation("重置用户密码")
+    @ApiOperation("重置使用者密碼")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID", required = true, paramType = "path")
+        @ApiImplicitParam(name = "id", value = "使用者ID", required = true, paramType = "path")
     })
     @PutMapping("/{id}/password")
     public ApiResponses<Void> resetPwd(@PathVariable("id") Integer id) {
@@ -114,9 +114,9 @@ public class UserRestController extends SuperController {
     }
 
     @Resources
-    @ApiOperation("设置用户状态")
+    @ApiOperation("設定使用者狀態")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID", required = true, paramType = "path")
+        @ApiImplicitParam(name = "id", value = "使用者ID", required = true, paramType = "path")
     })
     @PutMapping("/{id}/status")
     public ApiResponses<Void> updateStatus(@PathVariable("id") Integer id, @RequestBody @Validated(UserPARM.Status.class) UserPARM userPARM) {
@@ -125,17 +125,17 @@ public class UserRestController extends SuperController {
     }
 
     @Resources
-    @ApiOperation("创建用户")
+    @ApiOperation("建立使用者")
     @PostMapping
     public ApiResponses<Void> create(@RequestBody @Validated(UserPARM.Create.class) UserPARM userPARM) {
         int count = userService.count(Wrappers.<User>lambdaQuery().eq(User::getLoginName, userPARM.getLoginName()));
         ApiAssert.isTrue(ErrorCodeEnum.USERNAME_ALREADY_EXISTS, count == 0);
         User user = userPARM.convert(User.class);
-        //没设置密码 设置默认密码
+        //沒設定密碼 設定預設密碼
         if (StringUtils.isEmpty(user.getPassword())) {
             user.setPassword(Md5Crypt.apr1Crypt(user.getLoginName(), user.getLoginName()));
         }
-        //默认禁用
+        //預設禁用
         user.setStatus(StatusEnum.DISABLE);
         userService.save(user);
         userService.saveUserRoles(user.getId(), userPARM.getRoleIds());
@@ -143,9 +143,9 @@ public class UserRestController extends SuperController {
     }
 
     @Resources
-    @ApiOperation("修改用户")
+    @ApiOperation("修改使用者")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID", required = true, paramType = "path")
+        @ApiImplicitParam(name = "id", value = "使用者ID", required = true, paramType = "path")
     })
     @PutMapping("/{id}")
     public ApiResponses<Void> update(@PathVariable("id") Integer id, @RequestBody @Validated(UserPARM.Update.class) UserPARM userPARM) {

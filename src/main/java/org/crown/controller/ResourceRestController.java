@@ -50,12 +50,12 @@ import io.swagger.annotations.ApiOperation;
 
 /**
  * <p>
- * 资源表 前端控制器
+ * 資源表 前端控制器
  * </p>
  *
  * @author Caratacus
  */
-@Api(tags = {"Resource"}, description = "资源操作相关接口")
+@Api(tags = {"Resource"}, description = "資源操作相關介面")
 @RestController
 @RequestMapping(value = "/resources", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Validated
@@ -68,34 +68,34 @@ public class ResourceRestController extends SuperController {
     private ScanMappings scanMappings;
 
     @Resources
-    @ApiOperation(value = "查询所有资源(分页)")
+    @ApiOperation(value = "查詢所有資源(分頁)")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "resourceName", value = "需要查询的资源名", paramType = "query"),
-            @ApiImplicitParam(name = "method", value = "需要查询的请求方式", paramType = "query"),
-            @ApiImplicitParam(name = "authType", value = "权限认证类型", paramType = "query")
+        @ApiImplicitParam(name = "resourceName", value = "需要查詢的資源名", paramType = "query"),
+        @ApiImplicitParam(name = "method", value = "需要查詢的請求方式", paramType = "query"),
+        @ApiImplicitParam(name = "authType", value = "許可權認證類型", paramType = "query")
     })
     @GetMapping
     public ApiResponses<IPage<Resource>> page(@RequestParam(value = "resourceName", required = false) String resourceName,
-                                              @RequestParam(value = "method", required = false) String method,
-                                              @RequestParam(value = "authType", required = false) AuthTypeEnum authType
+        @RequestParam(value = "method", required = false) String method,
+        @RequestParam(value = "authType", required = false) AuthTypeEnum authType
     ) {
         IPage<Resource> page = resourceService.page(this.<Resource>getPage(),
-                Wrappers.<Resource>lambdaQuery()
-                        .like(StringUtils.isNotEmpty(resourceName), Resource::getResourceName, resourceName)
-                        .eq(StringUtils.isNotEmpty(method), Resource::getMethod, method)
-                        .eq(Objects.nonNull(authType), Resource::getAuthType, authType));
+            Wrappers.<Resource>lambdaQuery()
+                .like(StringUtils.isNotEmpty(resourceName), Resource::getResourceName, resourceName)
+                .eq(StringUtils.isNotEmpty(method), Resource::getMethod, method)
+                .eq(Objects.nonNull(authType), Resource::getAuthType, authType));
         return success(page);
     }
 
     @Resources
-    @ApiOperation(value = "查询所有资源")
+    @ApiOperation(value = "查詢所有資源")
     @GetMapping("/resources")
     public ApiResponses<List<Resource>> list() {
         return success(resourceService.list());
     }
 
     @Resources
-    @ApiOperation(value = "刷新资源")
+    @ApiOperation(value = "重新整理資源")
     @PutMapping
     public ApiResponses<Void> refresh() {
         scanMappings.doScan();

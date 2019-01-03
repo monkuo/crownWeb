@@ -56,12 +56,12 @@ import io.swagger.annotations.ApiOperation;
 
 /**
  * <p>
- * 账户 前端控制器
+ * 帳戶 前端控制器
  * </p>
  *
  * @author Caratacus
  */
-@Api(tags = {"Account"}, description = "账号操作相关接口")
+@Api(tags = {"Account"}, description = "帳號操作相關介面")
 @RestController
 @RequestMapping(value = "/account", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Validated
@@ -74,7 +74,7 @@ public class AccountRestController extends SuperController {
     private IMenuService menuService;
 
     @Resources(auth = AuthTypeEnum.OPEN)
-    @ApiOperation("获取Token")
+    @ApiOperation("獲取Token")
     @PostMapping("/token")
     public ApiResponses<TokenDTO> getToken(@RequestBody @Validated LoginPARM loginPARM) {
         User user = userService.login(loginPARM.getLoginName(), loginPARM.getPassword(), IpUtils.getIpAddr(request));
@@ -90,10 +90,10 @@ public class AccountRestController extends SuperController {
     }
 
     @Resources(auth = AuthTypeEnum.LOGIN)
-    @ApiOperation("修改密码")
+    @ApiOperation("修改密碼")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "oldPassword", value = "原密码", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "newPassword", value = "新密码", required = true, dataType = "String"),
+        @ApiImplicitParam(name = "oldPassword", value = "原密碼", required = true, dataType = "String"),
+        @ApiImplicitParam(name = "newPassword", value = "新密碼", required = true, dataType = "String"),
     })
     @PutMapping("/password")
     public ApiResponses<Void> updatePassword(@RequestBody @Validated PasswordPARM passwordPARM) {
@@ -102,7 +102,7 @@ public class AccountRestController extends SuperController {
     }
 
     @Resources(auth = AuthTypeEnum.LOGIN)
-    @ApiOperation("获取账户详情")
+    @ApiOperation("獲取帳戶詳情")
     @GetMapping("/info")
     public ApiResponses<UserDetailsDTO> accountInfo() {
         Integer uid = currentUid();
@@ -111,7 +111,7 @@ public class AccountRestController extends SuperController {
     }
 
     @Resources(auth = AuthTypeEnum.LOGIN)
-    @ApiOperation("修改账户信息")
+    @ApiOperation("修改帳戶資訊")
     @PutMapping("/info")
     public ApiResponses<Void> accountInfo(@RequestBody @Validated AccountInfoPARM accountInfoPARM) {
         Integer uid = currentUid();
@@ -122,7 +122,7 @@ public class AccountRestController extends SuperController {
     }
 
     @Resources(auth = AuthTypeEnum.LOGIN)
-    @ApiOperation("获取账户菜单")
+    @ApiOperation("獲取帳戶選單")
     @GetMapping("/menus")
     public ApiResponses<List<MenuTreeDTO>> menus() {
         List<MenuTreeDTO> menuTrees = menuService.getUserPermMenus(currentUid());
@@ -130,7 +130,7 @@ public class AccountRestController extends SuperController {
     }
 
     @Resources(auth = AuthTypeEnum.LOGIN)
-    @ApiOperation("获取账户按钮")
+    @ApiOperation("獲取帳戶按鈕")
     @GetMapping("/buttons/aliases")
     public ApiResponses<Set<String>> buttonsAliases() {
         return success(menuService.getUserPermButtonAliases(currentUid()));

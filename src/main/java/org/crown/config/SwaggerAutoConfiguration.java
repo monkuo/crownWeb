@@ -42,7 +42,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * <p>
- * RESTful 服务 API 管理框架 Swagger 配置初始化
+ * RESTful 服務 API 管理框架 Swagger 配置初始化
  * </p>
  *
  * @author Caratacus
@@ -54,41 +54,41 @@ public class SwaggerAutoConfiguration {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .globalOperationParameters(getParameters())
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
-                .paths(PathSelectors.any()).build().useDefaultResponseMessages(false);
+            .globalOperationParameters(getParameters())
+            .apiInfo(apiInfo())
+            .select()
+            .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+            .paths(PathSelectors.any()).build().useDefaultResponseMessages(false);
     }
 
     /**
-     * 获取swagger ApiInfo
+     * 獲取swagger ApiInfo
      *
      * @return
      */
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Crown API")
-                .description("Crown Swagger API 文档")
-                .termsOfServiceUrl("https://github.com/Caratacus/Crown")
-                .version("1.0")
-                .contact(new Contact("Crown", "https://github.com/Caratacus", "caratacus@qq.cn"))
-                .build();
+            .title("O.K.Bone API")
+            .description("O.K.Bone Swagger API 文件")
+            .termsOfServiceUrl("https://github.com/Caratacus/Crown")
+            .version("1.0")
+            .contact(new Contact("Crown", "https://github.com/Caratacus", "caratacus@qq.cn"))
+            .build();
     }
 
     /**
-     * 获取Swagger参数
+     * 獲取Swagger參數
      *
      * @return
      */
     List<Parameter> getParameters() {
         return Collections.singletonList(new ParameterBuilder()
-                .name("Authorization")
-                .defaultValue("Bearer " + JWTUtils.generate(1))
-                .description("Authorization")
-                .modelRef(new ModelRef("string"))
-                .parameterType("header")
-                .required(false)
-                .build());
+            .name("Authorization")
+            .defaultValue("Bearer " + JWTUtils.generate(1))
+            .description("Authorization")
+            .modelRef(new ModelRef("string"))
+            .parameterType("header")
+            .required(false)
+            .build());
     }
 }

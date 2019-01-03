@@ -47,7 +47,7 @@ import liquibase.util.MD5Util;
 
 /**
  * <p>
- * 服务mapping扫描
+ * 服務mapping掃描
  * </p>
  *
  * @author Caratacus
@@ -64,22 +64,23 @@ public class ScanMappings {
     private String[] emptyArray = new String[]{""};
 
     /**
-     * 扫描资源插入数据库
+     * 掃描資源插入資料庫
      */
     @PostConstruct
     public void doScan() {
+        System.out.println("handlerMapping.getHandlerMethods().values()=="+handlerMapping.getHandlerMethods().values());
         resourceService.saveOrUpdateBatch(
-                handlerMapping.getHandlerMethods()
-                        .values()
-                        .stream()
-                        .map(this::getResources)
-                        .flatMap(Collection::stream)
-                        .collect(Collectors.toList())
+            handlerMapping.getHandlerMethods()
+                .values()
+                .stream()
+                .map(this::getResources)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList())
         );
     }
 
     /**
-     * 获取Resource
+     * 獲取Resource
      *
      * @param handlerMethod
      * @return
@@ -109,9 +110,9 @@ public class ScanMappings {
         List<Resource> resources = new ArrayList<>(1);
         for (RequestMethod requestMethod : method) {
             for (String mapping : mappings) {
-                //接口描述
+                //介面描述
                 Resource resource = new Resource();
-                resource.setResourceName(Objects.nonNull(apiOperation) ? apiOperation.value() : "未命名资源路径");
+                resource.setResourceName(Objects.nonNull(apiOperation) ? apiOperation.value() : "未命名資源路徑");
                 resource.setMapping(mapping);
                 resource.setMethod(requestMethod.name());
                 resource.setAuthType(res.auth());

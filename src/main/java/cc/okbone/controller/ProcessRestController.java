@@ -20,25 +20,43 @@
  */
 package cc.okbone.controller;
 
+import java.util.List;
+
+import org.crown.common.annotations.Resources;
+import org.crown.framework.responses.ApiResponses;
+import org.crown.model.entity.Role;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 
+import cc.okbone.model.entity.Process;
+import cc.okbone.service.IProcessService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.crown.framework.controller.SuperController;
 
 /**
  * <p>
- * Process 前端控制器
+ * Process 製程 前端控制器
  * </p>
  *
  * @author O.K.Bone
  */
-@Api(tags = {"Process"}, description = "Process 相關介面")
+@Api(tags = {"Process"}, description = "Process 製程相關介面")
 @RestController
 @RequestMapping(value = "/process", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Validated
 public class ProcessRestController extends SuperController {
+        @Autowired
+        private IProcessService service;
 
+        @Resources
+        @ApiOperation(value = "查询所有製程")
+        public ApiResponses<List<Process>> list() {
+                return success(service.list());
         }
+}
