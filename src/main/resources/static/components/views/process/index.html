@@ -1,14 +1,14 @@
 <div class="layui-card">
     <div class="layui-card-header">
-        <h2 class="header-title">使用者管理</h2>
+        <h2 class="header-title">製程管理</h2>
         <span class="layui-breadcrumb pull-right">
           <a href="#!console">首頁</a>
-          <a><cite>使用者管理</cite></a>
+          <a><cite>製程管理</cite></a>
         </span>
     </div>
     <div class="layui-card-body">
         <!-- 表格頂部操作列 -->
-        <script type="text/html" id="user-toolbar">
+        <script type="text/html" id="data-toolbar">
             <div class="layui-btn-container">
                 {{# if({{addShow}} == true){ }}
                 <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add"><i
@@ -26,14 +26,11 @@
     {{#  if({{editShow}} == true){ }}
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
     {{#  } }}
-    {{#  if({{resetPwdShow}} == true){ }}
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="reset">重置密碼</a>
-    {{#  } }}
 </script>
 
 <!-- 表格狀態列 -->
-<script type="text/html" id="user-tpl-status">
-    <input type="checkbox" lay-filter="user-tpl-status" value="{{d.id}}" lay-skin="switch"
+<script type="text/html" id="data-tpl-status">
+    <input type="checkbox" lay-filter="data-tpl-status" value="{{d.id}}" lay-skin="switch"
            lay-text="正常|禁用" {{d.status==0?'checked':''}}/>
 </script>
 
@@ -44,7 +41,7 @@
         var config = layui.config;
         var layer = layui.layer;
         var crown = layui.crown;
-        $('#user-toolbar').vm({
+        $('#data-toolbar').vm({
             addShow: crown.hasPerm("sys:user:add")
         });
         $('#user-table-bar').vm({
@@ -53,8 +50,8 @@
         });
         // 渲染表格
         var userTable = table.render({
-            elem: '#user-table',
-            toolbar: '#user-toolbar',
+            elem: '#data-table',
+            toolbar: '#data-toolbar',
             url: config.serverUrl + '/process',
             request: config.request,
             parseData: config.parseResult,
@@ -65,37 +62,28 @@
                 {field: 'id', width: 60, title: 'ID'},
                 {field: 'name', align: 'center', sort: true, title: '名稱'},
                 {field: 'sort', align: 'center', sort: true, title: '排序'},
-                {field: 'status', align: 'center', sort: true, templet: '#user-tpl-status', title: '狀態'},
-                {align: 'center', toolbar: '#user-table-bar', title: '操作'}
+                {field: 'status', align: 'center', sort: true, templet: '#data-tpl-status', title: '狀態'},
+                {align: 'center', toolbar: '#data-table-bar', title: '操作'}
             ]]
         });
         // 表格頂部操作列
-        table.on('toolbar(user-table)', function (obj) {
+        table.on('toolbar(data-table)', function (obj) {
             if (obj.event === 'add') {
                 showEditModel();
             }
         });
         // 表格操作列事件
-        table.on('tool(user-table)', function (obj) {
+        table.on('tool(data-table)', function (obj) {
             var data = obj.data;
             var layEvent = obj.event;
 
             if (layEvent === 'edit') {
                 // 修改
                 showEditModel(data);
-            } else if (layEvent === 'reset') {
-                layer.confirm('確定重置此使用者密碼？', function (i) {
-                    layer.close(i);
-                    layer.load(2);
-                    crown.put('/users/' + obj.data.id + '/password', {}, function () {
-                        layer.closeAll('loading');
-                        layer.msg('重置密碼成功', {icon: 1});
-                    });
-                });
             }
         });
 
-        //顯示錶單彈窗
+        //顯示表單彈窗
         var showEditModel = function (data) {
             if (data) {
                 crown.get('/users/' + data.id, {async:false}, function (data) {
@@ -103,26 +91,21 @@
                 });
             }
             crown.popupCenter({
-                title: data ? '修改使用者' : '新增使用者',
+                title: data ? '修改' : '新增',
                 path: 'components/views/process/form.html',
                 finish: function () {
-                    userTable.reload('user-table', {});
+                    userTable.reload('data-table', {});
                 }
             });
         };
 
-        // 搜尋按鈕點選事件
-        $('#user-btn-search').click(function () {
-            userTable.reload({where: crown.getSearchForm()});
-        });
-
-        // 修改user狀態
-        form.on('switch(user-tpl-status)', function (obj) {
+        // 修改狀態
+        form.on('switch(data-tpl-status)', function (obj) {
             layer.load(2);
             crown.put('/process/' + obj.elem.value + '/status',
                 {data: {status: obj.elem.checked ? 0 : 1}}, function () {
                     layer.closeAll('loading');
-                    layer.msg('使用者狀態更新成功', {icon: 1});
+                    layer.msg('狀態更新成功', {icon: 1});
                 });
         });
     });
