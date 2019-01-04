@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * <p>
- * 登陆参数
+ * 登陸參數
  * </p>
  *
  * @author Caratacus
@@ -43,11 +43,11 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 public class LoginPARM extends Convert {
 
-    @ApiModelProperty(notes = "账号")
-    @NotBlank(message = "用户名不能为空！")
+    @ApiModelProperty(notes = "賬號")
+    @NotBlank(message = "使用者名稱不能為空！")
     private String loginName;
-    @ApiModelProperty(notes = "密码")
-    @NotBlank(message = "密码不能为空！")
+    @ApiModelProperty(notes = "密碼")
+    @NotBlank(message = "密碼不能為空！")
     private String password;
 
 }

@@ -34,6 +34,6 @@ public class PostgresqlGeneratorTest {
     @Test
     public void generator() {
         PostgresqlGenerator generator = new PostgresqlGenerator();
-        generator.generator("cc.okbone","sys_", "process");
+        generator.generator("org.crown", "sys_", "sys_process");
     }
 }

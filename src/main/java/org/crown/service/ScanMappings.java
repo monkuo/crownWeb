@@ -61,14 +61,13 @@ public class ScanMappings {
     @Autowired
     private RequestMappingHandlerMapping handlerMapping;
 
-    private String[] emptyArray = new String[]{""};
+    private String[] emptyArray = new String[] { "" };
 
     /**
      * 掃描資源插入資料庫
      */
     @PostConstruct
     public void doScan() {
-        System.out.println("handlerMapping.getHandlerMethods().values()=="+handlerMapping.getHandlerMethods().values());
         resourceService.saveOrUpdateBatch(
             handlerMapping.getHandlerMethods()
                 .values()

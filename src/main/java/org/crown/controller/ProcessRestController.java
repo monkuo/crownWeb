@@ -18,45 +18,67 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package cc.okbone.controller;
+package org.crown.controller;
 
 import java.util.List;
 
 import org.crown.common.annotations.Resources;
+import org.crown.enums.StatusEnum;
+import org.crown.framework.controller.SuperController;
+import org.crown.framework.emuns.ErrorCodeEnum;
 import org.crown.framework.responses.ApiResponses;
-import org.crown.model.entity.Role;
+import org.crown.framework.utils.ApiAssert;
+import org.crown.model.entity.Process;
+import org.crown.model.parm.ProcessPARM;
+import org.crown.service.IProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import cc.okbone.model.entity.Process;
-import cc.okbone.service.IProcessService;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.crown.framework.controller.SuperController;
-
 /**
  * <p>
- * Process 製程 前端控制器
+ * Process 前端控制器
  * </p>
  *
  * @author O.K.Bone
  */
-@Api(tags = {"Process"}, description = "Process 製程相關介面")
+@Api(tags = { "Process" }, description = "Process 相關介面")
 @RestController
 @RequestMapping(value = "/process", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Validated
 public class ProcessRestController extends SuperController {
-        @Autowired
-        private IProcessService service;
+    @Autowired
+    private IProcessService service;
 
-        @Resources
-        @ApiOperation(value = "查询所有製程")
-        public ApiResponses<List<Process>> list() {
-                return success(service.list());
-        }
+    @Resources
+    @ApiOperation(value = "查詢所有製程")
+    @GetMapping
+    public ApiResponses<List<Process>> list() {
+        return success(service.list());
+    }
+
+    @Resources
+    @ApiOperation("建立製程")
+    @PostMapping
+    public ApiResponses<Void> create(@RequestBody @Validated(ProcessPARM.Create.class) ProcessPARM parm) {
+        int count = service.count(Wrappers.<Process>lambdaQuery().eq(Process::getName, parm.getLoginName()));
+        ApiAssert.isTrue(ErrorCodeEnum.USERNAME_ALREADY_EXISTS, count == 0);
+        Process pojo = parm.convert(Process.class);
+
+        //預設啟用
+        pojo.setStatus(StatusEnum.NORMAL);
+        service.save(pojo);
+        return success(HttpStatus.CREATED);
+    }
 }

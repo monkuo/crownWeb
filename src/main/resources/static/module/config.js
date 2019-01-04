@@ -18,6 +18,13 @@ layui.define(function (exports) {
                 "data": res.result.records //解析資料列表
             };
         },
+        parseResult: function (res) { //res 即為原始返回的資料
+            return {
+                "code": res.status, //解析介面狀態
+                "msg": res.msg, //解析提示文字
+                "data": res.result //解析資料列表
+            };
+        },
         response: {
             //規定成功的狀態碼，預設：0
             statusCode: 200

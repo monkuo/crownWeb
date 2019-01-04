@@ -18,18 +18,34 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package cc.okbone.service;
+package org.crown.model.entity;
 
-import cc.okbone.model.entity.Process;
-import org.crown.framework.service.BaseService;
+import org.crown.enums.StatusEnum;
+import org.crown.framework.model.BaseModel;
+
+import com.baomidou.mybatisplus.annotation.TableName;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * <p>
- * Process 服務類
+ * Process
  * </p>
  *
  * @author O.K.Bone
  */
-public interface IProcessService extends BaseService<Process> {
+@TableName("sys_process")
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+public class Process extends BaseModel {
 
-        }
+    private static final long serialVersionUID = 1L;
+
+    private String name;
+    private Integer sort;
+    private StatusEnum status;
+
+}

@@ -1,8 +1,8 @@
-package cc.okbone.mapper;
+package org.crown.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import cc.okbone.model.entity.Process;
+import org.crown.model.entity.Process;
 import org.crown.framework.mapper.BaseMapper;
 
 /**

@@ -36,7 +36,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * <p>
- * 菜单表
+ * 選單表
  * </p>
  *
  * @author Caratacus
@@ -48,35 +48,35 @@ public class MenuPARM extends Convert {
 
     private static final long serialVersionUID = 1L;
 
-    @NotNull(groups = MenuPARM.Create.class, message = "父菜单不能为空")
-    @ApiModelProperty(notes = "父菜单ID，一级菜单为0")
+    @NotNull(groups = MenuPARM.Create.class, message = "父選單不能為空")
+    @ApiModelProperty(notes = "父選單ID，一級選單為0")
     private Integer parentId;
 
-    @NotBlank(groups = MenuPARM.Create.class, message = "菜单名称不能为空")
-    @ApiModelProperty(notes = "菜单名称")
+    @NotBlank(groups = MenuPARM.Create.class, message = "選單名稱不能為空")
+    @ApiModelProperty(notes = "選單名稱")
     private String menuName;
 
-    @ApiModelProperty(notes = "路径")
+    @ApiModelProperty(notes = "路徑")
     private String path;
 
     @ApiModelProperty(notes = "路由")
     private String router;
 
-    @NotNull(groups = MenuPARM.Create.class, message = "类型不能为空")
-    @ApiModelProperty(notes = "类型:1:目录,2:菜单,3:按钮")
+    @NotNull(groups = MenuPARM.Create.class, message = "類型不能為空")
+    @ApiModelProperty(notes = "類型:1:目錄,2:選單,3:按鈕")
     private MenuTypeEnum menuType;
 
-    @ApiModelProperty(notes = "菜单图标")
+    @ApiModelProperty(notes = "選單圖示")
     private String icon;
 
-    @ApiModelProperty(notes = "别名")
+    @ApiModelProperty(notes = "別名")
     private String alias;
 
-    @NotNull(groups = {MenuPARM.Create.class, MenuPARM.Status.class}, message = "状态不能为空")
-    @ApiModelProperty(notes = "状态:0：禁用 1：正常")
+    @NotNull(groups = { MenuPARM.Create.class, MenuPARM.Status.class }, message = "狀態不能為空")
+    @ApiModelProperty(notes = "狀態:0：禁用 1：正常")
     private StatusEnum status;
 
-    @ApiModelProperty(notes = "关联资源ID")
+    @ApiModelProperty(notes = "關聯資源ID")
     private List<String> resourceIds;
 
     public interface Create {

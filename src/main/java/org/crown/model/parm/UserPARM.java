@@ -40,7 +40,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * <p>
- * 用户PARM
+ * 使用者PARM
  * </p>
  *
  * @author Caratacus
@@ -53,23 +53,23 @@ public class UserPARM extends Convert {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(notes = "登陆名")
-    @NotBlank(groups = {Create.class, Update.class}, message = "用户名不能为空")
+    @ApiModelProperty(notes = "登陸名")
+    @NotBlank(groups = { Create.class, Update.class }, message = "使用者名稱不能為空")
     private String loginName;
-    @ApiModelProperty(notes = "昵称")
-    @NotBlank(groups = {Create.class, Update.class}, message = "昵称不能为空")
+    @ApiModelProperty(notes = "暱稱")
+    @NotBlank(groups = { Create.class, Update.class }, message = "暱稱不能為空")
     private String nickname;
-    @Email(groups = {Create.class, Update.class}, message = "邮箱格式不正确")
-    @ApiModelProperty(notes = "邮箱")
+    @Email(groups = { Create.class, Update.class }, message = "郵箱格式不正確")
+    @ApiModelProperty(notes = "郵箱")
     private String email;
-    @Pattern(groups = {Create.class, Update.class}, regexp = Regex.PHONE, message = "手机号码格式不正确")
-    @ApiModelProperty(notes = "手机号")
+    @Pattern(groups = { Create.class, Update.class }, regexp = Regex.PHONE, message = "手機號碼格式不正確")
+    @ApiModelProperty(notes = "手機號")
     private String phone;
-    @NotNull(groups = Status.class, message = "用户状态不能为空")
-    @ApiModelProperty(notes = "状态:0：禁用 1：正常")
+    @NotNull(groups = Status.class, message = "使用者狀態不能為空")
+    @ApiModelProperty(notes = "狀態:0：禁用 1：正常")
     private StatusEnum status;
-    @ApiModelProperty(notes = "用户角色ID")
-    @NotEmpty(groups = {Create.class, Update.class}, message = "用户角色不能为空")
+    @ApiModelProperty(notes = "使用者角色ID")
+    @NotEmpty(groups = { Create.class, Update.class }, message = "使用者角色不能為空")
     private List<Integer> roleIds;
 
     public interface Create {

@@ -20,10 +20,19 @@
  */
 package org.crown.model.parm;
 
-import javax.validation.constraints.NotBlank;
+import java.util.List;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.crown.common.cons.Regex;
+import org.crown.enums.StatusEnum;
 import org.crown.framework.model.convert.Convert;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,24 +40,37 @@ import lombok.NoArgsConstructor;
 
 /**
  * <p>
- * 角色表
+ * 製程PARM
  * </p>
  *
  * @author Caratacus
  */
+@ApiModel
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class RolePARM extends Convert {
+public class ProcessPARM extends Convert {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(notes = "角色名稱")
-    @NotBlank(groups = { Create.class, Update.class }, message = "角色名稱不能為空")
-    private String roleName;
-
-    @ApiModelProperty(notes = "備註")
-    private String remark;
+    @ApiModelProperty(notes = "登陸名")
+    @NotBlank(groups = { Create.class, Update.class }, message = "使用者名稱不能為空")
+    private String loginName;
+    @ApiModelProperty(notes = "暱稱")
+    @NotBlank(groups = { Create.class, Update.class }, message = "暱稱不能為空")
+    private String nickname;
+    @Email(groups = { Create.class, Update.class }, message = "郵箱格式不正確")
+    @ApiModelProperty(notes = "郵箱")
+    private String email;
+    @Pattern(groups = { Create.class, Update.class }, regexp = Regex.PHONE, message = "手機號碼格式不正確")
+    @ApiModelProperty(notes = "手機號")
+    private String phone;
+    @NotNull(groups = Status.class, message = "使用者狀態不能為空")
+    @ApiModelProperty(notes = "狀態:0：禁用 1：正常")
+    private StatusEnum status;
+    @ApiModelProperty(notes = "使用者角色ID")
+    @NotEmpty(groups = { Create.class, Update.class }, message = "使用者角色不能為空")
+    private List<Integer> roleIds;
 
     public interface Create {
 
@@ -57,4 +79,9 @@ public class RolePARM extends Convert {
     public interface Update {
 
     }
+
+    public interface Status {
+
+    }
+
 }

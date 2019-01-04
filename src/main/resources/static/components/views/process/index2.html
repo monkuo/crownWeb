@@ -1,0 +1,125 @@
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h2 class="header-title">製程管理</h2>
+        <span class="layui-breadcrumb pull-right">
+          <a href="#!console">首頁</a>
+          <a><cite>製程管理</cite></a>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <!-- 表格頂部操作列 -->
+        <script type="text/html" id="top-toolbar">
+            <div class="layui-btn-container">
+                {{# if({{addShow}} == true){ }}
+                <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add"><i
+                        class="layui-icon">&#xe654;</i>新增
+                </button>
+                {{# } }}
+            </div>
+        </script>
+        <!-- 資料表格 -->
+        <table class="layui-table" id="data-table" lay-filter="data-table"></table>
+    </div>
+</div>
+
+<script type="text/html" id="inline-tpl-status">
+    <input type="checkbox" lay-filter="inline-tpl-status" value="{{d.id}}" lay-skin="switch"
+           lay-text="正常|禁用" {{d.status==0?'checked':''}}/>
+</script>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="data-table-bar">
+    {{#  if({{editShow}} == true){ }}
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    {{#  } }}
+    {{#  if({{deleteShow}} == true){ }}
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">刪除</a>
+    {{#  } }}
+</script>
+
+<script>
+    layui.use(['form', 'table', 'config', 'crown'], function () {
+        var form = layui.form;
+        var table = layui.table;
+        var config = layui.config;
+        var layer = layui.layer;
+        var crown = layui.crown;
+        var parentPerm = 'basic:process';
+        $('#top-toolbar').vm({
+            addShow: crown.hasPerm(parentPerm + ":add")
+        });
+        $('#data-table-bar').vm({
+            editShow: crown.hasPerm(parentPerm + ":edit"),
+            deleteShow: crown.hasPerm(parentPerm + ":delete")
+        });
+        // 渲染表格
+        var renderTable = function () {
+            elem: '#data-table',
+            toolbar: '#top-toolbar',
+            url: config.serverUrl + '/process',
+            request: config.request,
+            parseData: config.parseData,
+            response: config.response,
+            headers: {Authorization: config.getToken()},
+            page: true,
+            cols: [[
+                {field: 'id', width: 60, title: 'ID'},
+                {field: 'name', align: 'center', sort: true, title: '名稱'},
+                {field: 'sort', align: 'center', sort: true, title: '排序'},
+                {field: 'status', align: 'center', sort: true, templet: '#user-tpl-status', title: '狀態'},
+                {align: 'center', toolbar: '#data-table-bar', title: '操作'}
+            ]]
+        };
+        //renderTable();
+
+        // 表格頂部操作列
+        table.on('toolbar(data-table)', function (obj) {
+            if (obj.event === 'add') {
+                showEditModel();
+            }
+        });
+
+        // 工具條點選事件
+        table.on('tool(data-table)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+            if (layEvent === 'edit') {
+                showEditModel(data);
+            } else if (obj.event === 'del') {
+                layer.confirm('確定刪除該記錄嗎？', function () {
+                    crown.delete('/process/' + data.id, {}, function () {
+                        layer.closeAll('loading');
+                        layer.msg('刪除成功', {icon: 1});
+                    }, false);
+                    renderTable();
+                });
+            }
+        });
+
+        //顯示表單彈窗
+        var showEditModel = function (data) {
+            if (data) {
+                crown.get('/process/' + data.id, {async: false}, function (data) {
+                    crown.putTempData('t_menu', data.result);
+                });
+            }
+            crown.popupCenter({
+                title: data ? '修改' : '新增',
+                path: 'components/views/process/form.html',
+                finish: function () {
+                    renderTable();
+                }
+            });
+        };
+
+        // 修改狀態
+        form.on('switch(inline-tpl-status)', function (obj) {
+            layer.load(2);
+            crown.put('/process/' + obj.elem.value + '/status',
+                {data: {status: obj.elem.checked ? 0 : 1}}, function () {
+                    layer.closeAll('loading');
+                    layer.msg('狀態更新成功', {icon: 1});
+                });
+        });
+    });
+</script>

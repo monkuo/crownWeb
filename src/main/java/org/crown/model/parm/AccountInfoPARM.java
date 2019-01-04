@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * <p>
- * 用户信息 PARM
+ * 使用者資訊 PARM
  * </p>
  *
  * @author Caratacus
@@ -45,14 +45,14 @@ public class AccountInfoPARM extends Convert {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(notes = "昵称")
-    @NotBlank(groups = Update.class, message = "昵称不能为空")
+    @ApiModelProperty(notes = "暱稱")
+    @NotBlank(groups = Update.class, message = "暱稱不能為空")
     private String nickname;
 
-    @ApiModelProperty(notes = "邮箱")
+    @ApiModelProperty(notes = "郵箱")
     private String email;
 
-    @ApiModelProperty(notes = "手机")
+    @ApiModelProperty(notes = "手機")
     private String phone;
 
     public interface Update {

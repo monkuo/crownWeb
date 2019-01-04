@@ -18,35 +18,23 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package cc.okbone.model.entity;
+package org.crown.service.impl;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import org.crown.framework.model.BaseModel;
-
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
+import org.crown.model.entity.Process;
+import org.crown.mapper.ProcessMapper;
+import org.crown.service.IProcessService;
+import org.crown.framework.service.impl.BaseServiceImpl;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
- * Process
+ * Process 服務實作類
  * </p>
  *
  * @author O.K.Bone
  */
-@TableName("process")
-@Data
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class Process extends BaseModel {
+@Service
+        public class ProcessServiceImpl extends BaseServiceImpl<ProcessMapper, Process>implements IProcessService {
 
-private static final long serialVersionUID=1L;
-
-private String processId;
-private String technologyPlanId;
-private Integer sequence;
-private Integer quota;
-
-}
+        }

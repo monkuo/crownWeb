@@ -18,23 +18,18 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package cc.okbone.service.impl;
+package org.crown.service;
 
-import cc.okbone.model.entity.Process;
-import cc.okbone.mapper.ProcessMapper;
-import cc.okbone.service.IProcessService;
-import org.crown.framework.service.impl.BaseServiceImpl;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.crown.model.entity.Process;
+import org.crown.framework.service.BaseService;
 
 /**
  * <p>
- * Process 服務實作類
+ * Process 服務類
  * </p>
  *
  * @author O.K.Bone
  */
-@Service
-        public class ProcessServiceImpl extends BaseServiceImpl<ProcessMapper, Process>implements IProcessService {
+public interface IProcessService extends BaseService<Process> {
 
         }
